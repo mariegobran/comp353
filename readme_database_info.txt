@@ -1,3 +1,5 @@
+//config.php is the file that contains the credentials
+
 To connect to local database:
 -name the file that does the connection config.php
 
