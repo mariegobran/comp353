@@ -1,9 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "eglen";
+$servername = "pvc353_2.encs.concordia.ca";
+$username = "pvc353_2";
 $password = "6yer537e";
-$dbname = 'eglen';
-
+$dbname = "pvc353_2";
 
 
 // Create connection
