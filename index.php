@@ -6,12 +6,12 @@
       // username and password sent from form 
 
       $myusername = mysqli_real_escape_string($conn,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
+      $mypassword = mysqli_real_escape_string($conn,$_POST['password']);  
       
       $sql = "SELECT idadmin FROM administrator WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
+      // $active = $row['active'];
       
       $count = mysqli_num_rows($result);
       
@@ -20,8 +20,11 @@
     if($count == 1) {
        // session_register("username");
        $_SESSION['login_user'] = $myusername;
+       if ($_SESSION['login_user']=="eglen"){
+        header("location: welcome.php");
+       }
+       else header("location: province.php");
        
-       header("location: welcome.php");
     }else {
        $error = "Your Login Name or Password is invalid";
     }
@@ -47,7 +50,7 @@
                <form action = "" method = "post">
                   <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
                   <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
-                  <input type = "submit" value = " Submit "/><br />s
+                  <input type = "submit" value = " Submit "/><br />
                </form>
                
 					
