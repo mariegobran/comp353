@@ -6,12 +6,12 @@
       // username and password sent from form 
 
       $myusername = mysqli_real_escape_string($conn,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
+      $mypassword = mysqli_real_escape_string($conn,$_POST['password']);  
       
       $sql = "SELECT idadmin FROM administrator WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
+      // $active = $row['active'];
       
       $count = mysqli_num_rows($result);
       
@@ -20,8 +20,11 @@
     if($count == 1) {
        // session_register("username");
        $_SESSION['login_user'] = $myusername;
+       if ($_SESSION['login_user']=="eglen"){
+        header("location: welcome.php");
+       }
+       else header("location: province.php");
        
-       header("location: welcome.php");
     }else {
        $error = "Your Login Name or Password is invalid";
     }
@@ -30,24 +33,9 @@
 <html>
    
    <head>
-      <title>Login Page</title>
+   <link rel="stylesheet" href="styles.css">
       
-      <style type = "text/css">
-         body {
-            font-family:Arial, Helvetica, sans-serif;
-            font-size:14px;
-         }
-         
-         label {
-            font-weight:bold;
-            width:100px;
-            font-size:14px;
-         }
-         
-         .box {
-            border:#666666 solid 1px;
-         }
-      </style>
+    <title>Login Page</title>
       
    </head>
    
