@@ -10,7 +10,8 @@
         echo "<ul class='menu'>
         <li>Welcome ". $username ." </li>
         <li><a href='browse.php' >Browse Ads</a></li>
-        <li><a href='myaccount.php'>My Account</a></li>";
+        <li><a href='account.php'>My Account</a></li>
+        <li><a href='logout.php'>Logout</a></li>";
 
         if($userType=='admin'){ // the menu part only for admin users
             echo "<li>Admin Area<ul>
