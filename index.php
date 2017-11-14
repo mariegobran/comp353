@@ -20,10 +20,10 @@
     if($count == 1) {
        // session_register("username");
        $_SESSION['login_user'] = $myusername;
-       if ($_SESSION['login_user']=="eglen"){
-        header("location: welcome.php");
+       if ($_SESSION['login_user']=="comp"){
+        header("location: viewAds.php");
        }
-       else header("location: province.php");
+       else header("location: assumptions.txt");
        
     }else {
        $error = "Your Login Name or Password is invalid";
