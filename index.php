@@ -21,6 +21,8 @@
        // session_register("username");
        $_SESSION['login_user'] = $myusername;
        $_SESSION['user_type'] = $row['userType'];
+       $_SESSION['userID'] = $row['userID'];
+       
        if ($_SESSION['login_user']=="eglen"){
         header("location: welcome.php");
        }

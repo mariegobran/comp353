@@ -11,10 +11,15 @@
       $password = mysqli_real_escape_string($conn,$_POST['password']);  
       
       //adding Values to database
-      $sql = "INSERT INTO users (firstName, lastName, username, password, email,usertype, userID) 
-      VALUES ('$firstName','$lastName','$username','$password', '$email', 'Regular',567)";
+      $sql = "INSERT INTO users (firstName, lastName, username, password, email,usertype, userID, plan, card) 
+      VALUES ('$firstName','$lastName','$username','$password', '$email', 'Regular',567 , 0, 0);";
     
-      header ("location: login.php");
+    if(mysqli_query($conn, $sql)){
+      echo "Records inserted successfully.";
+   } else{
+      echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+  }
+      header ("location: index.php");
  }
 ?>
 <html>
