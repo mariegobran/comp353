@@ -8,7 +8,7 @@
       $myusername = mysqli_real_escape_string($conn,$_POST['username']);
       $mypassword = mysqli_real_escape_string($conn,$_POST['password']);  
       
-      $sql = "SELECT idadmin FROM administrator WHERE username = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT userID FROM users WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       // $active = $row['active'];
@@ -20,8 +20,11 @@
     if($count == 1) {
        // session_register("username");
        $_SESSION['login_user'] = $myusername;
-       if ($_SESSION['login_user']=="comp"){
-        header("location: viewAds.php");
+       $_SESSION['user_type'] = $row['userType'];
+       $_SESSION['userID'] = $row['userID'];
+       
+       if ($_SESSION['login_user']=="eglen"){
+        header("location: welcome.php");
        }
        else header("location: assumptions.txt");
        
@@ -40,7 +43,7 @@
    </head>
    
    <body bgcolor = "#FFFFFF">
-	
+    	<?php include("menu.php"); ?>
       <div align = "center">
          <div style = "width:300px; border: solid 1px #333333; " align = "left">
             <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
