@@ -3,12 +3,13 @@
    session_start();
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
+     
+    // username and password sent from form 
 
       $myusername = mysqli_real_escape_string($conn,$_POST['username']);
       $mypassword = mysqli_real_escape_string($conn,$_POST['password']);  
       
-      $sql = "SELECT userID FROM users WHERE username = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT userID, usertype FROM users WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       // $active = $row['active'];
@@ -20,11 +21,11 @@
     if($count == 1) {
        // session_register("username");
        $_SESSION['login_user'] = $myusername;
-       $_SESSION['user_type'] = $row['userType'];
+       $_SESSION['usetype'] = $row['usertype'];
        $_SESSION['userID'] = $row['userID'];
        
-       if ($_SESSION['login_user']=="eglen"){
-        header("location: welcome.php");
+       if ($_SESSION['usetype']=="Admin"){
+        header("location: viewAds.php");
        }
        else header("location: assumptions.txt");
        
