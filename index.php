@@ -26,7 +26,7 @@
        if ($_SESSION['login_user']=="eglen"){
         header("location: welcome.php");
        }
-       else header("location: province.php");
+       else header("location: assumptions.txt");
        
     }else {
        $error = "Your Login Name or Password is invalid";
