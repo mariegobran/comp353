@@ -35,6 +35,7 @@
    </head>
    
    <body>
+   <?php include("menu.php"); ?>
       <h1>viewAds <?php echo $login_session; ?></h1> 
       <h2><a href = "logout.php">Sign Out</a></h2>
 

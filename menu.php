@@ -6,7 +6,7 @@
     }else {
         //the menu if the user is logged in
         $username = $_SESSION['login_user']; // username 
-        $userType = $_SESSION['user_type']; // user type regular or admin, this should be extracted from the database
+        $userType = $_SESSION['usetype']; // user type regular or admin, this should be extracted from the database
         echo "<ul class='menu'>
         <li>Welcome ". $username ." </li>
         <li><a href='browse.php' >Browse Ads</a></li>
