@@ -7,17 +7,16 @@
 
     if (isset($_POST['submit'])) {
   
-   $city=$_POST["city"];
-   $category=$_POST["category"];
-
-   $sql = "SELECT * FROM ads 
-   WHERE city = '$city', category ='$category' ";
+   $city=mysqli_real_escape_string($conn,$_POST['city']);
+   $category=mysqli_real_escape_string($conn,$_POST['category']);
+  
+   $sql = "SELECT * FROM ads WHERE city = '$city' and category = '$category' ";
    $result = $conn->query($sql);
    
    if ($result->num_rows > 0) {
        // output data of each row
        while($row = $result->fetch_assoc()) {
-           echo "Type: " . $row["type"]. " Card Holder: " . $row["cardHolder"]. " CVS" . $row["cvs"]. "Address " . $row["address"]. "Expiration " . $row["expiration"]. "Card Number " . $row["cardNumber"] . "<br>";
+           echo "ID: " . $row["AdID"]. " Description " . $row["description"]. " Price" . $row["price"]. "Address " . $row["address"]. "Phone " . $row["phone"]. "Email " . $row["email"] . "<br>";
        }
    } else {
        echo "0 results";
