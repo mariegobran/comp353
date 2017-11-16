@@ -11,17 +11,36 @@
       $password = mysqli_real_escape_string($conn,$_POST['password']);  
       
       //adding Values to database
-      $sql = "INSERT INTO users (firstName, lastName, username, password, email,usertype, userID, plan, card) 
-      VALUES ('$firstName','$lastName','$username','$password', '$email', 'Regular',567 , 0, 0);";
+      $sql = "INSERT INTO users (firstName, lastName, username, password, email,usertype, plan, card) 
+      VALUES ('$firstName','$lastName','$username','$password', '$email', 'Regular', 0, 0);";
     
     if(mysqli_query($conn, $sql)){
       echo "Records inserted successfully.";
+
+      //get the user entry to extract the user entry and the userID from it
+      $sql ="SElECT * FROM users WHERE username = '$username';";
+      $result = mysqli_query($conn, $sql);
+      $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername, table row must be 1 row
+      
+    if($count == 1) {
+    
+       $_SESSION['login_user'] = $myusername;
+       $_SESSION['usetype'] = $row['usertype'];
+       $_SESSION['userID'] = $row['userID'];
+      }else {
+        $error = "user is not registerd";
+     }
+
+
    } else{
       echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
   }
-      header ("location: index.php");
+      header ("location: planPurchase.php");
  }
 ?>
+<!DOCTYPE html>
 <html>
    
    <head>
@@ -33,8 +52,8 @@
    <body bgcolor = "#FFFFFF">
     	<?php include("menu.php"); ?>
       <div align = "center">
-         <div style = "width:300px; border: solid 1px #333333; " align = "left">
-            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
+         <div style = "width:400px; border: solid 1px #333333; " align = "left">
+            <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Registration</b></div>
 				
             <div style = "margin:30px">
                
