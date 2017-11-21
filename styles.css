@@ -22,7 +22,11 @@ body {
 }
 
 ul.menu li {
-    float: left;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
 ul.menu li a {
@@ -32,11 +36,11 @@ ul.menu li a {
     padding: 14px 16px;
     text-decoration: none;
 }
-
 ul.menu li a:hover {
     background-color: #111;
 }
 
+<<<<<<< HEAD
 * {
     box-sizing: border-box;
 }
@@ -69,3 +73,42 @@ html {
     color: #ffffff;
     padding: 15px;
 }
+=======
+.dropbtn {
+    background-color: #334;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #111;
+    color: white;
+}
+
+.dropdown {
+    position: relative;
+    display: inline;
+    
+}
+.dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #111;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+>>>>>>> 4d5b208d7be5f655770d9076b23e35d15a3a91bf

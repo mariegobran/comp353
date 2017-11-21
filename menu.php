@@ -1,3 +1,25 @@
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function dropDown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 <?php
 //the menu if the user is not logged in
     if (!isset($_SESSION['login_user'])){
@@ -13,11 +35,13 @@
         <li><a href='account.php'>My Account</a></li>
         <li><a href='logout.php'>Logout</a></li>";
 
-        if($userType=='admin'){ // the menu part only for admin users
-            echo "<li>Admin Area<ul>
-            <li><a href='allPayments.php'>All payments</a></li>
-            <li><a href='allUsersAds.php'>Manage users ads</a></li>
-            <li><a href='backupPayments.php'>backup payments</a></li></ul><li>";
+        if($userType=='Admin'){ // the menu part only for admin users
+            echo "<div class='dropdown'>
+            <li><button onclick='dropDown()' class='dropbtn'>Admin Area</button>
+            <div id='myDropdown' class='dropdown-content'>
+            <a href='allPayments.php'>All payments</a>
+            <a href='allUsersAds.php'>Manage users ads</a>
+            <a href='backupPayments.php'>backup payments</a></div></div><li>";
             }
         echo "</ul>";
         }
