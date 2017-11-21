@@ -39,9 +39,9 @@ window.onclick = function(event) {
             echo "<div class='dropdown'>
             <li><button onclick='dropDown()' class='dropbtn'>Admin Area</button>
             <div id='myDropdown' class='dropdown-content'>
-            <a href='allPayments.php'>All payments</a>
-            <a href='allUsersAds.php'>Manage users ads</a>
-            <a href='backupPayments.php'>backup payments</a></div></div><li>";
+            <a href='viewPayments.php'>All payments</a>
+            <a href='manage_users_ads.php'>Manage users ads</a>
+            <a href='backup_payments.php'>backup payments</a></div></div><li>";
             }
         echo "</ul>";
         }

@@ -9,7 +9,7 @@
           <head>
           <title>viewAds </title>
             <link rel="stylesheet" href="styles.css">
-              <?php include("boostrap.php"); ?>
+              <?php include("bootstrap.php"); ?>
           </head>
           <body bgcolor = "#FFFFFF">
               <?php include("menu.php"); ?>
