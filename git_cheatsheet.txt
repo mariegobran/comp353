@@ -1,0 +1,64 @@
+Git cheat sheet:
+
+//Setting your email address for every repository on your computer
+
+git config --global user.email "email@example.com"
+
+//Setting your email address for a single repository
+
+git config user.email "email@example.com"
+
+// push to heroku
+git push -f heroku
+
+//pull from github:
+git pull origin master
+
+
+//delete local branch
+git branch -d branch_name
+git branch -D branch_name
+
+//delete remote branch
+$ git push <remote_name> --delete <branch_name>
+
+//push to remote branch
+
+git push origin [branch name]
+
+
+//rollback
+
+git reset --hard “commit_serial_number”
+
+
+
+
+//How to make Git “forget” about a file that was tracked but is now in .gitignore?
+git rm --cached <file>
+
+//creating a remote branch. First create it locally and then:
+//The current branch creating_pages has no upstream branch.
+//To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin new_branch_name
+
+
+//set git remote heroku to https://git.heroku.com/appname.git
+
+heroku git:remote -a appname
+
+
+//If you want to deploy code to Heroku from a non-master branch of your local repository
+// (such as testbranch), use the following syntax to ensure it is pushed to the remote’s 
+//master branch:
+
+git push heroku testbranch:master
+
+// get fresh copy from origin master
+
+git reset --hard origin/master
+
+
+//hard push to heroku
+git push -f heroku master
