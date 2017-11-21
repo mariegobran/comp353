@@ -9,7 +9,7 @@
           <head>
           <title>viewAds </title>
             <link rel="stylesheet" href="styles.css">
-              <?php include("boostrap.php"); ?>
+              <?php include("bootstrap.php"); ?>
           </head>
           <body bgcolor = "#FFFFFF">
               <?php include("menu.php"); ?>
@@ -88,16 +88,16 @@
                     <input type="radio" name="category" value="Customer Service" > Customer Service<br>
                     <input type="radio" name="category" value="Management" > Management<br>
                     
-                    <input type="submit" name="submit" value="display" />
+                    <input type="submit" name="submit"   class="btn btn-info btn-block" value="View ads" />
 
                     
                     </div>
                     </form>
                     <div class="col-sm-4">
                     <?php
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //something posted
 
+                    //something posted
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submit'])) {
           
           $city=mysqli_real_escape_string($conn,$_POST['city']);
@@ -107,9 +107,55 @@
           $result = $conn->query($sql);
           
           if ($result->num_rows > 0) {
-              // output data of each row
+             
+            
+            // output data of each row
               while($row = $result->fetch_assoc()) {
-                  echo "ID: " . $row["AdID"]. " Description " . $row["description"]. " Price" . $row["price"]. "Address " . $row["address"]. "Phone " . $row["phone"]. "Email " . $row["email"] . "<br>";
+
+                echo "<table class='table'>";
+                echo "<tr>";
+                echo "<td>ID:</td>";
+                echo "<td>". $row["AdID"]."</td>";
+                echo "</tr>";
+                echo "<td>Description</td>";
+                echo "<td>". $row["description"]."</td>";
+                echo "</tr>";
+                echo "<td>Price</td>";
+                echo "<td>". $row["price"]."</td>";
+                echo "</tr>";
+                echo "<td>Address</td>";
+                echo "<td>". $row["address"]."</td>";
+                echo "</tr>";
+                echo "<td>Phone</td>";
+                echo "<td>". $row["phone"]."</td>";
+                echo "</tr>";
+                echo "<td>Email</td>";
+                echo "<td>".  $row["email"]."</td>";
+                echo "</tr>";
+                echo "</table>";
+
+                //pop up window to buy an item
+                echo " <button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Buy</button>";
+                echo "<!-- Modal -->
+                <div class='modal fade' id='myModal' role='dialog'>
+                  <div class='modal-dialog'>
+                  
+                    <!-- Modal content-->
+                    <div class='modal-content'>
+                      <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                        <h4 class='modal-title'>Modal Header</h4>
+                      </div>
+                      <div class='modal-body'>
+                        <p>Some text in the modal.</p>
+                      </div>
+                      <div class='modal-footer'>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>";
               }
           } else {
               echo "0 results";
