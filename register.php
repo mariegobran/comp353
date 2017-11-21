@@ -28,7 +28,7 @@
     
        $_SESSION['login_user'] = $username;
        $_SESSION['usetype'] = $row['usertype'];
-       $_SESSION['userID'] = $row['userID']
+       $_SESSION['userID'] = $row['userID'];
        
       }else {
         $error = "user is not registerd";
