@@ -20,10 +20,7 @@
                     <div class="row">
                     <div class="col-sm-4">
                     <h2>Choose City and Category:</h2>
-                    <?php
-          $card=$_SESSION['card'];
-          echo $card;
-          ?>
+                  
                     <h2>Quebec</h2>
                     <input type="radio" name="city" value="Montreal" > Montreal<br>
                     <input type="radio" name="city" value="Laval"> Laval<br>
