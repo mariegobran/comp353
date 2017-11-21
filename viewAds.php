@@ -9,7 +9,7 @@
   
    $city=mysqli_real_escape_string($conn,$_POST['city']);
    $category=mysqli_real_escape_string($conn,$_POST['category']);
-  
+
    $sql = "SELECT * FROM ads WHERE city = '$city' and category = '$category' ";
    $result = $conn->query($sql);
    
@@ -37,15 +37,16 @@
    </head>
    <body bgcolor = "#FFFFFF">
     	<?php include("menu.php"); ?>
-      <div class = "radio">
-      <div class = "nav">
             <form action="" name="display" method="post">
             <br>
-            <h2>Choose the city and the category:</h2>
+            <div class="row">
+            <div class="col-sm-6">
+            <h2>Choose City and Category:</h2>
             <h2>Quebec</h2>
-              <input type="radio" name="city" value="Montreal" > Montreal<br>
+            <input type="radio" name="city" value="Montreal" > Montreal<br>
             <input type="radio" name="city" value="Laval"> Laval<br>
             <input type="radio" name="city" value="Chambly"> Chambly
+
               <h2>Ontario</h2>
               <input type="radio" name="city" value="Toronto" > Toronto<br>
             <input type="radio" name="city" value="Hamilton"> Hamilton<br>
@@ -83,7 +84,8 @@
             <input type="radio" name="city" value="Fredericton"> Fredericton<br>
             <input type="radio" name="city" value="Bathurst"> Bathurst
             </div>
-            <div class = "nav">
+            
+            <div class="col-sm-6">
             <h2>Cetegory</h2>
             
             <h2>Buy and Sell</h2>
@@ -113,7 +115,7 @@
             <input type="submit" name="submit" value="display" />
 
             </div>
-</div>
+            </div>
             </form>
               
 			

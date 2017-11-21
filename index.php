@@ -24,7 +24,7 @@
        $_SESSION['usetype'] = $row['usertype'];
        $_SESSION['userID'] = $row['userID'];
        
-       if ($_SESSION['usetype']=="Admin"){
+       if ($_SESSION['usetype']=="Admin" || $_SESSION['usetype']=="Regular"){
         header("location: viewAds.php");
        }
        else header("location: assumptions.txt");
