@@ -21,21 +21,22 @@
       $sql ="SElECT * FROM users WHERE username = '$username';";
       $result = mysqli_query($conn, $sql);
       $count = mysqli_num_rows($result);
-      
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       // If result matched $myusername, table row must be 1 row
       
-    if($count == 1) {
+    if($count >= 1) {
     
-       $_SESSION['login_user'] = $myusername;
+       $_SESSION['login_user'] = $username;
        $_SESSION['usetype'] = $row['usertype'];
-       $_SESSION['userID'] = $row['userID'];
+       $_SESSION['userID'] = $row['userID']
+       
       }else {
         $error = "user is not registerd";
      }
 
 
    } else{
-      echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+      echo "ERROR: Could not execute $sql. " ;
   }
       header ("location: planPurchase.php");
  }

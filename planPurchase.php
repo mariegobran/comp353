@@ -40,7 +40,7 @@
                 VALUES ('$cardType','$cardHolder', $cardNum, $cvs, '$cardAddress', DATE '$expiration');";
 
         if($mysqli_query($conn,$sql)){
-            echo "card added successfully"
+            echo "card added successfully";
         } else{
             echo "ERROR: Could not execute $sql. " . mysqli_error($link);
         }
@@ -50,26 +50,24 @@
 
 
     //editing user's card and plan
-
+    $userID = $_SESSION['userID'];
     $sql = "UPDATE users
             SET plan = $plan, card = $cardNum
-            WHERE userID = $_SESSION['userID'];";
+            WHERE userID = $userID;";
     if($mysqli_query($conn,$sql)){
-        echo "user's plan and card updated successfully"
+        echo "user's plan and card updated successfully";
     } else{
         echo "ERROR: Could not execute $sql. " . mysqli_error($link);
     }
     
-    
+}
 ?>
-<!DOCTYPE html>
+
 <html>
    
    <head>
-   <link rel="stylesheet" href="styles.css">
-      
-    <title>Registration Page</title>
-      
+   <link rel="stylesheet" href="styles.css">  
+    <title>Registration Page</title>  
    </head>
    <body bgcolor = "#FFFFFF">
     	<?php include("menu.php"); ?>
