@@ -12,12 +12,18 @@
               <?php include("bootstrap.php"); ?>
           </head>
           <body bgcolor = "#FFFFFF">
+
+          
               <?php include("menu.php"); ?>
                     <form action="" name="display" method="post">
                     <br>
                     <div class="row">
                     <div class="col-sm-4">
                     <h2>Choose City and Category:</h2>
+                    <?php
+          $card=$_SESSION['card'];
+          echo $card;
+          ?>
                     <h2>Quebec</h2>
                     <input type="radio" name="city" value="Montreal" > Montreal<br>
                     <input type="radio" name="city" value="Laval"> Laval<br>
@@ -134,7 +140,7 @@
                 echo "</tr>";
                 echo "</table>";
 
-                //pop up window to buy an item
+                //pop up window whn a transaction is sucesfull
                 echo " <button type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Buy</button>";
                 echo "<!-- Modal -->
                 <div class='modal fade' id='myModal' role='dialog'>
@@ -144,11 +150,45 @@
                     <div class='modal-content'>
                       <div class='modal-header'>
                         <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                        <h4 class='modal-title'>Modal Header</h4>
+                        <h4 class='modal-title'>Transaction confirmation</h4>
                       </div>
                       <div class='modal-body'>
-                        <p>Some text in the modal.</p>
-                      </div>
+                        <p>";
+                        if($conn === false){
+                          die("ERROR: Could not connect. " . mysqli_connect_error());
+                        }
+                        else{
+                      $buyerID=$_SESSION['userID'];
+                      $sellerID=$row['ownerID'];
+                      $card=$_SESSION['card'];
+                      
+                      //to be fixed, do not know what it is
+                      $item_service=1;
+
+                      $price=$row["price"];
+                      
+                      //to be fixed, it's either a plan, promotion or online purchase
+                      $purchaseType='na';
+                      
+                      $date = date('Y-m-d');
+                      $bill= 'NA';
+
+                      $description=$row["description"];
+                      $AdID= $row["AdID"];
+                      $TID=1;
+
+      
+                      $sql = "INSERT INTO Transactions (`purchaseType`, `date`, `bill`, `item_service`, `buyerID`, `sellerID`, `card`)
+                      VALUES('$purchaseType', '$date', '$price', '$item_service', '$buyerID', '$sellerID', '$card');";
+
+                        
+                        if(mysqli_query($conn, $sql)){
+                          echo "Transaction completed";
+                        } else{
+                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($sql);
+                        }
+                        
+                        echo" </div>
                       <div class='modal-footer'>
                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                       </div>
@@ -157,6 +197,7 @@
                   </div>
                 </div>";
               }
+            }
           } else {
               echo "0 results";
           }
