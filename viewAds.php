@@ -115,8 +115,6 @@
           if ($result->num_rows > 0) {
             // output data of each row
               while($row = $result->fetch_assoc()) {
-                $yourArray[$index] = $row;
-                $index++;
 
                 echo "<table class='table'>";
                 echo "<tr>";
@@ -139,87 +137,15 @@
                 echo "<td>".  $row["email"]."</td>";
                 echo "</tr>";
                 echo "</table>";
-
-                //pop up window whn a transaction is sucesfull
-                echo " <button  type='button' class='btn btn-info btn-lg' data-toggle='modal' data-target='#myModal'>Buy</button>";
-                echo "<!-- Modal -->
-                <div class='modal fade' id='myModal' role='dialog'>
-                  <div class='modal-dialog'>
-                  
-                    <!-- Modal content-->
-                    <div class='modal-content'>
-                      <div class='modal-header'>
-                        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                        <h4 class='modal-title'>Transaction confirmation</h4>
-                      </div>
-                      <div class='modal-body'>
-                        <p>";
-                        if($conn === false){
-                          die("ERROR: Could not connect. " . mysqli_connect_error());
-                        }
-                        else{
-                      $buyerID=$_SESSION['userID'];
-                      $card=$_SESSION['card'];
-                      $sellerID=$row['ownerID'];
-                      
-                      //to be fixed, do not know what it is
-                      $item_service=1;
-
-                      $price=$row["price"];
-                      
-                      //to be fixed, it's either a plan, promotion or online purchase
-                      $purchaseType='na';
-                      
-                      $date = date('Y-m-d');
-                      $bill= 'NA';
-
-                      $description=$row["description"];
-                      $AdID= $row["AdID"];
-                      $TID=1;
-                      $sql = "INSERT INTO Transactions (`purchaseType`, `date`, `bill`, `item_service`, `buyerID`, `sellerID`, `card`)
-                      VALUES('$purchaseType', '$date', '$price', '$item_service', '$buyerID', '$sellerID', '$card');";
-                        
-                       if(mysqli_query($conn, $sql)){
-                          echo "Transaction completed";
-                        } else{
-                          echo "ERROR: Could not able to execute $sql. " . mysqli_error($sql);
-                        }
-                      
-                    }
-                        echo" </div>
-                      <div class='modal-footer'>
-                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>";
+                
+                echo"<td><form action='buy.php' method='POST'><button type='submit' name='buy' value='" . $row["AdID"]. "' >BuyItem</button></form></td>";
               }
             }
           } else {
               echo "0 results";
           }
           
-          //function to add transaction
-          function buyItem($param = NULL) {
-
-            $buyerID=$_SESSION['userID'];
-            $card=$_SESSION['card'];
-            $sellerID=$row['ownerID'];
-            $item_service=1;
-            $purchaseType='na';
-
-
-            $date = date('Y-m-d');
-            $bill= 'NA';
-
-            $description=$row["description"];
-            $AdID= $row["AdID"];
-            $TID=1;
-            $sql = "INSERT INTO Transactions (`purchaseType`, `date`, `bill`, `item_service`, `buyerID`, `sellerID`, `card`)
-            VALUES('$purchaseType', '$date', '$price', '$item_service', '$buyerID', '$sellerID', '$card');";
-
-         }
+          
 
           $conn->close();
 
