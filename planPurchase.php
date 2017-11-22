@@ -39,7 +39,7 @@
         $sql ="INSERT INTO cards (type,cardHolder,cardNumber,cvs,address,expiration)
                 VALUES ('$cardType','$cardHolder', $cardNum, $cvs, '$cardAddress', DATE '$expiration');";
 
-        if($mysqli_query($conn,$sql)){
+        if(mysqli_query($conn, $sql)){
             echo "card added successfully";
         } else{
             echo "ERROR: Could not execute $sql. " . mysqli_error($link);
@@ -54,8 +54,9 @@
     $sql = "UPDATE users
             SET plan = $plan, card = $cardNum
             WHERE userID = $userID;";
-    if($mysqli_query($conn,$sql)){
-        echo "user's plan and card updated successfully";
+    if(mysqli_query($conn,$sql)){
+        echo "user's plan and card are updated successfully";
+        header ("location: viewAds.php");
     } else{
         echo "ERROR: Could not execute $sql. " . mysqli_error($link);
     }
@@ -94,7 +95,7 @@
                   <label>Card type :</label><input type = "text" name = "cardType" class = "box" /><br/><br />
                   <label>Card holder :</label><input type = "text" name = "cardHolder" class = "box"/><br /><br />
                   <label>Card number  :</label><input type = "text" name = "cardNum" class = "box" /><br/><br />
-                  <label>cvs  :</label><input type = "text" name = "cvs" class = "box"/><br /><br />
+                  <label>cvv  :</label><input type = "text" name = "cvs" class = "box"/><br /><br />
                   <label>address  :</label><input type = "text" name = "cardAddress" class = "box"/><br /><br />
                   <label>expiration(YYYY-MM)  :</label><input type = "text" name = "expiration" class = "box"/><br /><br />
                   <input type = "submit" value = " Submit "/><br />
