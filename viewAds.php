@@ -38,30 +38,7 @@
                       <input type="radio" name="city" value="Edmenton" > Edmenton<br>
                     <input type="radio" name="city" value="Calgary"> Calgary<br>
                     <input type="radio" name="city" value="LethBridge"> LethBridge
-                      <h2>Nova Scotia</h2>
-                      <input type="radio" name="city" value="Halifax" > Halifax<br>
-                    <input type="radio" name="city" value="Dartmouth"> Dartmouth<br>
-                    <input type="radio" name="city" value="Truro"> Truro
-                      <h2>Newfoundland and Labrador</h2>
-                      <input type="radio" name="city" value="St John's" > St John's<br>
-                    <input type="radio" name="city" value="Corner Brook"> Corner Brook<br>
-                    <input type="radio" name="city" value="Labrador"> Labrador
-                      <h2>Saskatchewan</h2>
-                      <input type="radio" name="city" value="Regina" > Regina<br>
-                    <input type="radio" name="city" value="Saskatoon"> Saskatoon<br>
-                    <input type="radio" name="city" value="Prince Albert"> Prince Albert
-                      <h2>Manitoba</h2>
-                      <input type="radio" name="city" value="Winnipeg" > Winnipeg<br>
-                    <input type="radio" name="city" value="Bradon"> Bradon<br>
-                    <input type="radio" name="city" value="Winkler"> Winkler
-                      <h2>Prince Edward Island</h2>
-                      <input type="radio" name="city" value="Charlottetown" > Charlottetown<br>
-                    <input type="radio" name="city" val222ue="Summerside"> Summerside<br>
-                    <input type="radio" name="city" value="Souris"> Souris
-                      <h2>New Brunswick</h2>
-                      <input type="radio" name="city" value="Moncton" > Moncton<br>
-                    <input type="radio" name="city" value="Fredericton"> Fredericton<br>
-                    <input type="radio" name="city" value="Bathurst"> Bathurst
+                      
                     </div>
                     
                     <div class="col-sm-4">
@@ -102,9 +79,6 @@
                     //something posted
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submit'])) {
-          
-          $index=0;
-          $rowData = array(); // this array will keep rowData
 
           $city=mysqli_real_escape_string($conn,$_POST['city']);
           $category=mysqli_real_escape_string($conn,$_POST['category']);
