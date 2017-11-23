@@ -1,5 +1,6 @@
+<?phpsession_start();?>
+
 <?php
-    session_start();
    include('config.php');
    
    
