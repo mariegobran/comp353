@@ -1,5 +1,24 @@
 <?php session_start(); ?>
-   
+
+<?php function redirect($url)
+{
+    if (!headers_sent())
+    {    
+        header('Location: '.$url);
+        exit;
+        }
+    else
+        {  
+        echo '<script type="text/javascript">';
+        echo 'window.location.href="'.$url.'";';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+        echo '</noscript>'; exit;
+    }
+}
+   ?> 
+
    <?php include("config.php");
    
    
@@ -29,9 +48,9 @@
        $_SESSION['card'] = $row['card'];
        
        if ($_SESSION['usetype']=="Admin" || $_SESSION['usetype']=="Regular"){
-        header("location: viewAds.php");
+        redirect("viewAds.php");
        }
-       else header("location: assumptions.txt");
+       else redirect("assumptions.txt");
        
     }else {
        $error = "Your Login Name or Password is invalid";
