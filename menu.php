@@ -38,6 +38,7 @@
         </div>
       </nav>";
 
+
         if($userType=='Admin'){ 
           // the menu part only for admin users
             echo " <nav class='navbar navbar-inverse'>
@@ -50,6 +51,7 @@
               </ul>
             </div>
           </nav>";
+
             }
 
         }

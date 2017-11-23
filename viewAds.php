@@ -4,8 +4,10 @@
           
           <head>
           <title>viewAds </title>
+
           
             <!-- <link rel="stylesheet" href="styles.css"> -->
+
               <?php include("bootstrap.php"); ?>
           </head>
 
