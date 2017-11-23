@@ -8,78 +8,100 @@
           
           <head>
           <title>viewAds </title>
-            <link rel="stylesheet" href="styles.css">
+          
+            <!-- <link rel="stylesheet" href="styles.css"> -->
               <?php include("bootstrap.php"); ?>
           </head>
+
+
           <body bgcolor = "#FFFFFF">
 
-          
+          <!-- start cntainer div -->
+          <div class="container">
+
+          <!-- main content goes here -->
+          <div class="row">
+         
               <?php include("menu.php"); ?>
+
+              <div class="well well-sm">
                     <form action="" name="display" method="post">
                     <br>
-                    <div class="row">
-                    <div class="col-sm-4">
+                    
                     <h2>Choose City and Category:</h2>
-                  
-                    <h2>Quebec</h2>
-                    <input type="radio" name="city" value="Montreal" > Montreal<br>
-                    <input type="radio" name="city" value="Laval"> Laval<br>
-                    <input type="radio" name="city" value="Chambly"> Chambly
 
-                      <h2>Ontario</h2>
-                      <input type="radio" name="city" value="Toronto" > Toronto<br>
-                    <input type="radio" name="city" value="Hamilton"> Hamilton<br>
-                    <input type="radio" name="city" value="Ottawa"> Ottawa
-                      <h2>British Columbia</h2>
-                      <input type="radio" name="city" value="Vancouver" >Vancouver<br>
-                    <input type="radio" name="city" value="Victoria"> Victoria<br>
-                    <input type="radio" name="city" value="Kelowna"> Kelowna
-                      <h2>Alberta</h2>
-                      <input type="radio" name="city" value="Edmenton" > Edmenton<br>
-                    <input type="radio" name="city" value="Calgary"> Calgary<br>
-                    <input type="radio" name="city" value="LethBridge"> LethBridge
-                      
+                    <select name = "city" class="custom-select">
+                    <optgroup label="Quebec">
+                    <option value="Montreal" > Montreal</option>
+                    <option value="Laval"> Laval</option>
+                    <option value="Chambly"> Chambly</option>
+                    </optgroup>
+
+                      <optgroup label="Ontario">
+                      <option value="Toronto" > Toronto</option>
+                    <option value="Hamilton"> Hamilton</option>
+                    <option value="Ottawa"> Ottawa</option>
+                      </optgroup>
+
+                    <optgroup label="British Columbia">
+                      <option value="Vancouver" >Vancouver</option>
+                    <option value="Victoria"> Victoria</option>
+                    <option value="Kelowna"> Kelowna</option>
+                    </optgroup>
+
+                    <optgroup label="Alberta">
+                      <option value="Edmenton" > Edmenton</option>
+                    <option value="Calgary"> Calgary</optiobr>
+                    <option value="LethBridge"> LethBridge</option>
+                      </optgroup>
+                      </select>
+                    
+                    
+                    
+                    <select name = "category" class="custom-select">
+                    
+                    <optgroup label="Buy and Sell">
+                      <option value="Clothing" > Clothing</option>
+                    <option value="Books"> Books</option>
+                    <option value="Electronics"> Electronics</option>
+                    <option value="Musical Instruments"> Musical Instruments</option>
+                    </optgroup>
+
+                    <optgroup label="Services">
+                    <option value="Tutors" > Tutors</option>
+                    <option value="Event Planners" > Event Planners</option>
+                    <oprion value="Tutors" > Photographers</option>
+                    <option value="Personal trainers" > Personal trainers</option>
+                    </optgroup>
+
+                    <optgroup label="Rent">
+                    <option value="Electronics" > Electronics</option>
+                    <option value="Car" > Car</option>
+                    <option value="Apartments" > Apartments</option>
+                    <option value="Wedding - Dresses" > Wedding - Dresses</option>
+                    </optgroup>
+
+                    <optgroup label="Jobs">
+                    <option value="Healthcare" > Healthcare</option>
+                    <option value="General Labour" > General Labour</option>
+                    <option value="Customer Service" > Customer Service</option>
+                    <option value="Management" > Management</option>
+                    </optgroup>
+                    
+                    </select>
                     </div>
-                    
-                    <div class="col-sm-4">
-                    <h2>Cetegory</h2>
-                    
-                    <h2>Buy and Sell</h2>
-                      <input type="radio" name="category" value="Clothing" > Clothing<br>
-                    <input type="radio" name="category" value="Books"> Books<br>
-                    <input type="radio" name="category" value="Electronics"> Electronics<br>
-                    <input type="radio" name="category" value="Musical Instruments"> Musical Instruments<br>
-                    
-                    <h2>Services</h2>
-                    <input type="radio" name="category" value="Tutors" > Tutors<br>
-                    <input type="radio" name="category" value="Event Planners" > Event Planners<br>
-                    <input type="radio" name="Photographers" value="Tutors" > Photographers<br>
-                    <input type="radio" name="category" value="Personal trainers" > Personal trainers<br>
-                    
-                    <h2>Rent</h2>
-                    <input type="radio" name="category" value="Electronics" > Electronics<br>
-                    <input type="radio" name="category" value="Car" > Car<br>
-                    <input type="radio" name="category" value="Apartments" > Apartments<br>
-                    <input type="radio" name="category" value="Wedding - Dresses" > Wedding - Dresses<br>
-                    
-                    <h2>Jobs</h2>
-                    <input type="radio" name="category" value="Healthcare" > Healthcare<br>
-                    <input type="radio" name="category" value="General Labour" > General Labour<br>
-                    <input type="radio" name="category" value="Customer Service" > Customer Service<br>
-                    <input type="radio" name="category" value="Management" > Management<br>
-                    
+                    <div class="well well-sm">
                     <input type="submit" name="submit"   class="btn btn-info btn-block" value="View ads" />
-
-                    
                     </div>
+                    
+                    
                     </form>
-                    <div class="col-sm-4">
+                    
                     <?php
 
                     //something posted
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submit'])) {
-
           $city=mysqli_real_escape_string($conn,$_POST['city']);
           $category=mysqli_real_escape_string($conn,$_POST['category']);
 
@@ -88,32 +110,38 @@
           
           if ($result->num_rows > 0) {
             // output data of each row
-              while($row = $result->fetch_assoc()) {
+              
 
-                echo "<table class='table'>";
+                echo "<table class='table table-hover'>";
                 echo "<tr>";
-                echo "<td>ID:</td>";
-                echo "<td>". $row["AdID"]."</td>";
-                echo "</tr>";
                 echo "<td>Description</td>";
-                echo "<td>". $row["description"]."</td>";
-                echo "</tr>";
+                echo "<td>ID:</td>";
                 echo "<td>Price</td>";
-                echo "<td>". $row["price"]."</td>";
-                echo "</tr>";
                 echo "<td>Address</td>";
-                echo "<td>". $row["address"]."</td>";
-                echo "</tr>";
                 echo "<td>Phone</td>";
-                echo "<td>". $row["phone"]."</td>";
-                echo "</tr>";
                 echo "<td>Email</td>";
-                echo "<td>".  $row["email"]."</td>";
                 echo "</tr>";
-                echo "</table>";
+                while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>". $row["AdID"]."</td>";
+                echo "<td>". $row["description"]."</td>";
+                echo "<td>". $row["price"]."</td>";
+                echo "<td>". $row["address"]."</td>";
+                echo "<td>". $row["phone"]."</td>";
+                echo "<td>".  $row["email"]."</td>";
+                echo"<td>
                 
-                echo"<td><form action='buy.php' method='POST'><button type='submit' name='buy' value='" . $row["AdID"]. "' >BuyItem</button></form></td>";
+                ".
+                //The form above redirects to buy.php page and save the AdID so it can be bought.
+                "
+
+                <form action='buy.php' method='POST'>
+                <button  type='submit' name='buy' value='" . $row["AdID"]. "' >Buy</button>
+                </form>
+                </td>";
+                echo "</tr>";
               }
+              echo "</table>";
             }
           } else {
               echo "0 results";
@@ -130,9 +158,11 @@
                     </div>
 
 
-              
-              
+              <!-- main content ends here -->
+          <div class="row">
 
+              <!--end container div-->
+                    </div>
           </body>
           
         </html>

@@ -7,7 +7,6 @@ include("config.php");
 
 
 $adid=mysqli_real_escape_string($conn,$_POST['buy']);
-echo $adid;
 
 
 $sql = "SELECT * FROM ads WHERE AdID = '$adid'";
