@@ -1,9 +1,5 @@
-        <?php
-          include("session.php");
-          include("config.php");
-          ?>
-
-
+        <?php include("session.php"); ?> 
+          
         <html>
           
           <head>
