@@ -1,48 +1,58 @@
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function dropDown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
+<html>
+<head>
+   
+  <?php include("bootstrap.php"); ?>
+          </head>
 <?php
 //the menu if the user is not logged in
     if (!isset($_SESSION['login_user'])){
-        echo " <ul class='menu'><li><a href='register.php'>Register NOW!</a></li>
-          <li><a href='index.php'> Login </a></li></ul>";
+ echo " <nav class='navbar navbar-inverse'>
+          <div class='container-fluid'>
+            <div class='navbar-header'>
+              <a class='navbar-brand' href='#'>OCN</a>
+            </div>
+            <ul class='nav navbar-nav'>
+              <li class='active'><a href='register.php'>Register</a></li>
+              <li class='active'><a href='index.php'>Log In</a></li>
+            </ul>
+          </div>
+        </nav>";
+
+
+
     }else {
         //the menu if the user is logged in
         $username = $_SESSION['login_user']; // username 
         $userType = $_SESSION['usetype']; // user type regular or admin, this should be extracted from the database
-        echo "<ul class='menu'>
-        <li>Welcome ". $username ." </li>
-        <li><a href='viewAds.php' >Browse Ads</a></li>
-        <li><a href='account.php'>My Account</a></li>
-        <li><a href='logout.php'>Logout</a></li>";
+       
+        echo " <nav class='navbar navbar-inverse'>
+        <div class='container-fluid'>
+          <div class='navbar-header'>
+            <a class='navbar-brand' href='#'>Welcome ". $username ."</a>
+          </div>
+          <ul class='nav navbar-nav'>
+            <li class='active'><a href='viewAds.php' >Browse Ads</a></li>
+            <li class='active'><a href='account.php'>My Account</a></li>
+            <li class='active'><a href='logout.php'>Logout</a></li>
+          </ul>
+        </div>
+      </nav>";
 
-        if($userType=='Admin'){ // the menu part only for admin users
-            echo "<div class='dropdown'>
-            <li><button onclick='dropDown()' class='dropbtn'>Admin Area</button>
-            <div id='myDropdown' class='dropdown-content'>
-            <a href='allPayments.php'>All payments</a>
-            <a href='allUsersAds.php'>Manage users ads</a>
-            <a href='backupPayments.php'>backup payments</a></div></div><li>";
+        if($userType=='Admin'){ 
+          // the menu part only for admin users
+            echo " <nav class='navbar navbar-inverse'>
+            <div class='container-fluid'>
+              
+              <ul class='nav navbar-nav'>
+                <li class='active'><a href='allPayments.php'>All payments</a></li>
+                <li class='active'><a href='allUsersAds.php'>Manage users ads</a></li>
+                <li class='active'><a href='backupPayments.php'>backup payments</a></li>
+              </ul>
+            </div>
+          </nav>";
             }
-        echo "</ul>";
+
         }
 ?>
+
+</html>
