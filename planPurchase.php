@@ -47,7 +47,15 @@
     }else{
         $error = "the card is not valid";
     }
+    // get the plan price from the database 
+    $sql = "SELECT * FROM PLANS WHERE numberOfDays = '$plan'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $planPrice = $row['price'];
 
+    // add a row in the transaction table for the plan purchase
+    $sql ="INSERT INTO TRANSACTIONS (purchaseType, date, bill, item_service, buyerID, card)
+    VALUES ('plan purchase', CURDATE(), $planPrice, 0, $_SESSION['userID'], $cardNum);  ";
 
     //editing user's card and plan
     $userID = $_SESSION['userID'];
@@ -56,6 +64,7 @@
             WHERE userID = $userID;";
     if(mysqli_query($conn,$sql)){
         echo "user's plan and card are updated successfully";
+        
         header ("location: viewAds.php");
     } else{
         echo "ERROR: Could not execute $sql. " . mysqli_error($link);

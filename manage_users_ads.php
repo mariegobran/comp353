@@ -1,6 +1,11 @@
 <?php
 include("config.php");
 include("session.php");
+if($_SESSION["usetype"]!= "Admin"){
+    header("location: account.php");
+}
+
+
 ?>
 
 <html>
@@ -50,7 +55,7 @@ include("session.php");
                  <td>" . $row["ownerID"]. "</td>
                  <td>" . $row["datePosted"]. "</td>
                  <td>" . $row["title"]. "</td>
-                 <td><button>Edit</button></td>".
+                 <td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>".
                  "</tr>";
             }
         } else {
