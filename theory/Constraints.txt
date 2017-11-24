@@ -1,0 +1,7 @@
+Plan and Card has a default row with values 0, 0
+
+Notable constraints from FDs:
+-No 2 subcategories can have the same name
+-Only 4 possible stores, each having different SLnum classification
+-One card cannot have multiple cardholders, but the same card can be used by multiple users or transactions
+-Multiple users can use the same email (implement check for existing email???)
