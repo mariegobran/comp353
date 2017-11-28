@@ -97,6 +97,9 @@
                     
                     <?php
 
+                    //get all the ids form the store ad table and put them in $row1
+
+
                     //something posted
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['submit'])) {
@@ -106,14 +109,16 @@
           $sql = "SELECT * FROM ads WHERE city = '$city' and category = '$category' ";
           $result = $conn->query($sql);
           
+          
           if ($result->num_rows > 0) {
             // output data of each row
               
 
                 echo "<table class='table table-hover'>";
                 echo "<tr>";
+                echo "<td>ID</td>";
+                echo "<td>Title</td>";
                 echo "<td>Description</td>";
-                echo "<td>ID:</td>";
                 echo "<td>Price</td>";
                 echo "<td>Address</td>";
                 echo "<td>Phone</td>";
@@ -122,21 +127,27 @@
                 while($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>". $row["AdID"]."</td>";
+                echo "<td>". $row["title"]."</td>";
                 echo "<td>". $row["description"]."</td>";
                 echo "<td>". $row["price"]."</td>";
                 echo "<td>". $row["address"]."</td>";
                 echo "<td>". $row["phone"]."</td>";
                 echo "<td>".  $row["email"]."</td>";
-                echo"<td>
+                echo"<td>";
                 
-                ".
+                
                 //The form above redirects to buy.php page and save the AdID so it can be bought.
-                "
-
+                $sql1= "SELECT AdID FROM storeAds";
+                $result1 = $conn->query($sql1);
+                while( $row1 = $result1->fetch_assoc()){
+                if( $row["AdID"] == $row1["AdID"]){
+                echo "  
                 <form action='buy.php' method='POST'>
                 <button  type='submit' name='buy' value='" . $row["AdID"]. "' >Buy</button>
-                </form>
-                </td>";
+                </form>";
+                }
+              }
+                echo"</td>";
                 echo "</tr>";
               }
               echo "</table>";
