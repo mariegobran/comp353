@@ -45,7 +45,7 @@
             <div class='container-fluid'>
               
               <ul class='nav navbar-nav'>
-                <li class='active'><a href='allPayments.php'>All payments</a></li>
+                <li class='active'><a href='viewPayments.php'>All payments</a></li>
                 <li class='active'><a href='manage_users_ads.php'>Manage users ads</a></li>
                 <li class='active'><a href='backupPayments.php'>backup payments</a></li>
               </ul>
