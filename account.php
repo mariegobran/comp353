@@ -1,4 +1,6 @@
-<?php include("session.php"); ?> 
+<?php include("session.php"); 
+      include("config.php");
+?> 
           
         <html>
           
@@ -50,6 +52,8 @@
              <?php
              $sql = "SELECT * FROM Plans";
              $result = $conn->query($sql);
+             
+
                 ?>
 
                 <!--Form to change the plan:-->       
@@ -97,10 +101,27 @@
                                 WHERE userID = ' $userID'";
                                 $result = $conn->query($sql);
                                 echo "<br>Refresh the page to viw the changes";
-                                
+
                                 //To Do: Add payment in to transcation
-                                //$sql = "INSERT INTO Transactions (`purchaseType`, `date`, `bill`, `is_item`, `buyerID`, `sellerID`, `card`)
-                                //VALUES('$purchaseType', '$date', '$price', '$is_item', '$buyerID', '$sellerID', '$card')";
+                                
+                                $sql = "SELECT Price FROM Plans
+                                        WHERE numberOfDays=$selected_plan";
+                                
+                                
+                                $result = $conn->query($sql);
+                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                $price=$row['Price'];
+
+                                $card= $_SESSION['card'];
+                                
+
+                                $sql= "INSERT INTO Transactions (purchaseType, date, bill, is_item, buyerID, sellerID, card)
+                                VALUES('plan_purchase', '$Date', '$price', 0, '$userID', 1, '$card')";
+                                if($result = $conn->query($sql)){
+                                echo "<br>Transaction completed";
+                                }
+                                
+                                
                             }
                         }
                         ?>
