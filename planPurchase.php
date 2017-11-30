@@ -55,7 +55,7 @@
 
     // add a row in the transaction table for the plan purchase
     $sql ="INSERT INTO TRANSACTIONS (purchaseType, date, bill, item_service, buyerID, card)
-    VALUES ('plan purchase', CURDATE(), $planPrice, 0, $_SESSION['userID'], $cardNum);  ";
+    VALUES ('plan purchase', CURDATE(), $planPrice, 0, ".$_SESSION['userID'].", $cardNum);  ";
 
     //editing user's card and plan
     $userID = $_SESSION['userID'];
