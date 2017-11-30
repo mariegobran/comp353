@@ -1,7 +1,8 @@
 <?php
-include("config.php");
 include("session.php");
-if($_SESSION["usetype"]!= "Admin"){
+include("config.php");
+
+if($_SESSION["usetype"]!= "Admin"){    
     header("location: account.php");
 }
 
