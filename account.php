@@ -29,8 +29,10 @@ if($_SESSION["usetype"]!= "Admin"){
 
    <body bgcolor = "#FFFFFF">
    <?php include("menu.php"); ?>
-   <div class="container">
-   <h2>My Ads</h2>                            
+   <div class="container"> 
+   <div class="well well-sm">
+   <h2>My Ads</h2>   
+   </div>                         
    <table class="table table-hover">
      <thead>
        <tr>
@@ -68,6 +70,7 @@ if($_SESSION["usetype"]!= "Admin"){
      
      </tbody>
    </table>
+   <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST AD</a> 
    </div>
    </body>
 

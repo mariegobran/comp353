@@ -29,7 +29,7 @@
    //get usetype and userID saved in session and check if the user is not
    // either the admin or the ad owner (then they're not allowed to modify the ad)
    if(!($_SESSION['usetype']=="Admin" || $_SESSION['userID']== $ownerID)){
-       header ("location: index.php");
+     #  header ("location: index.php");
    }
 
 
@@ -119,12 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                   <label>category:</label>
                     <input class="form-control" type = "text" name = "category" class = "box" value = '<?php echo $category?>'/><br /><br />
                   <label>promotion:</label>
-                  <select name="cars">
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="fiat">Fiat</option>
-    <option value="audi">Audi</option>
-  </select>
+                    <input class="form-control" type = "text" name = "promotion" class = "box" value = '<?php echo $promotion?>'/><br /><br />
 
                   <input class="btn btn-default" type = "submit" name= "change" value = "Submit changes"/>
                   <input class="btn btn-default" type = "reset">
