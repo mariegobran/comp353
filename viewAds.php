@@ -106,7 +106,7 @@
           $city=mysqli_real_escape_string($conn,$_POST['city']);
           $category=mysqli_real_escape_string($conn,$_POST['category']);
 
-          $sql = "SELECT * FROM ads WHERE city = '$city' and category = '$category' ";
+          $sql = "SELECT * FROM ads WHERE city = '$city' and category = '$category' and deleted is null ";
           $result = $conn->query($sql);
           
           

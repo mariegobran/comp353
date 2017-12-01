@@ -1,6 +1,24 @@
 <?php include("session.php"); 
       include("config.php");
 ?> 
+<?php function redirect($url)
+{
+    if (!headers_sent())
+    {    
+        header('Location: '.$url);
+        exit;
+        }
+    else
+        {  
+        echo '<script type="text/javascript">';
+        echo 'window.location.href="'.$url.'";';
+        echo '</script>';
+        echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+        echo '</noscript>'; exit;
+    }
+}
+   ?> 
           
         <html>
           
@@ -126,7 +144,55 @@
                         }
                         ?>
             </div>
-           
+                        <div class="well well-sm">
+                       <h2>My ads</h2>
+                       <?php
+                            $user=$_SESSION['userID'];
+                            $sql = "SELECT * FROM ads WHERE ownerID='58'AND deleted IS null";
+                            $result = $conn->query($sql);
+
+                         if ($result->num_rows > 0) {
+                            // output data of each row
+                              
+                
+                                echo "<table class='table table-hover'>";
+                                echo "<tr>";
+                                echo "<td>ID</td>";
+                                echo "<td>Title</td>";
+                                echo "<td>Description</td>";
+                                echo "<td>Price</td>";
+                                echo "<td>Address</td>";
+                                echo "<td>Phone</td>";
+                                echo "<td>Email</td>";
+                                echo "</tr>";
+                                while($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>". $row["AdID"]."</td>";
+                                echo "<td>". $row["title"]."</td>";
+                                echo "<td>". $row["description"]."</td>";
+                                echo "<td>". $row["price"]."</td>";
+                                echo "<td>". $row["address"]."</td>";
+                                echo "<td>". $row["phone"]."</td>";
+                                echo "<td>".  $row["email"]."</td>";
+                                echo "<td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>";
+                                echo "<td><form action= 'delete_ad.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Delete</button></form></td>";
+                                echo"<td>";
+                                
+                              
+                                echo"</td>";
+                                echo "</tr>";
+                              }
+                              echo "</table>";
+                          
+                            }
+                
+                          $conn->close();
+                       ?>
+
+
+
+                        
+                        </div>
             </div>
             </div>
         <!--end container div-->
