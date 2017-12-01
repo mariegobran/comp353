@@ -1,8 +1,9 @@
 <?php
-include("config.php");
 include("session.php");
-if($_SESSION["usetype"]!= "Admin"){
-    header("location: account.php");
+include("config.php");
+
+if($_SESSION["usetype"]!= "Admin"){    
+  #  header("location: account.php");
 }
 
 
@@ -37,8 +38,8 @@ if($_SESSION["usetype"]!= "Admin"){
          <th>#</th>
          <th>user ID</th>
          <th>Date posted</th>
-         <th>title</th>
-         <th>edit</th>
+         <th>Title</th>
+         <th></th>
        </tr>
      </thead>
      <tbody>

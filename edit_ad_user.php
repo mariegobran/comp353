@@ -36,7 +36,6 @@
    //submit changes
    if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['change'])){
       //get values from the form
-      $ownerID = mysqli_real_escape_string($conn,$_POST['ownerID']);
       $Title = mysqli_real_escape_string($conn,$_POST['title']);
       $description = mysqli_real_escape_string($conn,$_POST['description']);
       $price = mysqli_real_escape_string($conn,$_POST['price']);
@@ -50,7 +49,7 @@
       
       //modify in database
       $sql = "UPDATE ads
-      SET ownerID =  $ownerID, 
+      SET  
           title = '$Title', 
           description = '$description', 
           price = $price, 
@@ -100,8 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
             <div class="col-sm-2" style="background-color:lavender;"></div>
             <div class="col-sm-8">
                <form action = "" method = "post" class="form-horizontal">
-                  <label>Owner ID:</label>
-                    <input class="form-control" type = "text" name = "ownerID" class = "box" value = '<?php echo $ownerID?>'/><br /><br />
+    
                   <label>Title:</label>
                     <input class="form-control" type = "text" name = "title" class = "box" value = '<?php echo $Title?>'/><br/><br />
                   <label>Description:</label>
@@ -121,7 +119,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                   <label>category:</label>
                     <input class="form-control" type = "text" name = "category" class = "box" value = '<?php echo $category?>'/><br /><br />
                   <label>promotion:</label>
-                    <input class="form-control" type = "text" name = "promotion" class = "box" value = '<?php echo $promotion?>'/><br /><br />
+                  <select name="cars">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="fiat">Fiat</option>
+    <option value="audi">Audi</option>
+  </select>
 
                   <input class="btn btn-default" type = "submit" name= "change" value = "Submit changes"/>
                   <input class="btn btn-default" type = "reset">
