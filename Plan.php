@@ -27,25 +27,6 @@
 
           <?php include("menu.php"); ?>
 
-          <div class="well well-sm">
-                <?php
-                    $myusername=$_SESSION['login_user'];
-                    $sql = "SELECT plan FROM users WHERE username = '$myusername'";
-                    $result = mysqli_query($conn,$sql);
-                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-
-                    echo "<table class='table table-hover'>";
-                    echo "<tr>";
-                    echo "<th>Your User Name</th>";
-                    echo "<th>Plan</th>";
-                    echo "</tr>";
-                    echo "<tr>";
-                    echo "<td>". $_SESSION['login_user']."</td>";
-                    echo "<td>". $row['plan']. " Days </td>";
-                    echo "</tr>";  
-                    echo"</table>";    
-                ?>
-         </div>
         
             <!--get plan values:--> 
             <div class="well well-sm">

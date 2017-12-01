@@ -70,7 +70,21 @@ if($_SESSION["usetype"]!= "Admin"){
      
      </tbody>
    </table>
-   <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST AD</a> 
+   <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST AD</a> <br /><br /><br />
+
+
+   <!-- Plan Part starts here            -->
+   <div class="well well-sm">
+   <h2>My Plan</h2>   
+   <?php
+        $myusername=$_SESSION['login_user'];
+        $sql = "SELECT plan FROM users WHERE username = '$myusername'";
+        $result = $conn->query($sql);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC); 
+        echo "<h5> You ,". $myusername.", are currently on a ". $row['plan']. "days plan </h5>" 
+    ?>
+    <a href= 'Plan.php' type="button" class="btn btn-primary btn-block">Change Plan</a> <br /><br /><br />
+   </div> 
    </div>
    </body>
 
