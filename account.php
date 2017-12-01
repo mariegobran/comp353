@@ -148,7 +148,7 @@
                        <h2>My ads</h2>
                        <?php
                             $user=$_SESSION['userID'];
-                            $sql = "SELECT * FROM ads WHERE ownerID='58'AND deleted IS null";
+                            $sql = "SELECT * FROM ads WHERE ownerID='$user'AND deleted IS null";
                             $result = $conn->query($sql);
 
                          if ($result->num_rows > 0) {
@@ -189,7 +189,7 @@
                           $conn->close();
                        ?>
 
-
+                        
 
                         
                         </div>
