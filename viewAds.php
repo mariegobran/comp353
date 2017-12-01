@@ -123,6 +123,7 @@
                 echo "<td>Address</td>";
                 echo "<td>Phone</td>";
                 echo "<td>Email</td>";
+                echo "<td>Rating</td>";
                 echo "</tr>";
                 while($row = $result->fetch_assoc()) {
                 echo "<tr>";
@@ -133,6 +134,7 @@
                 echo "<td>". $row["address"]."</td>";
                 echo "<td>". $row["phone"]."</td>";
                 echo "<td>".  $row["email"]."</td>";
+                echo "<td>".  $row["rating"]."</td>";
                 echo"<td>";
                 
                 

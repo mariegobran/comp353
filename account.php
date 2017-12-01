@@ -164,6 +164,7 @@
                                 echo "<td>Address</td>";
                                 echo "<td>Phone</td>";
                                 echo "<td>Email</td>";
+                                echo "<td>Rating</td>";
                                 echo "</tr>";
                                 while($row = $result->fetch_assoc()) {
                                 echo "<tr>";
@@ -173,7 +174,8 @@
                                 echo "<td>". $row["price"]."</td>";
                                 echo "<td>". $row["address"]."</td>";
                                 echo "<td>". $row["phone"]."</td>";
-                                echo "<td>".  $row["email"]."</td>";
+                                echo "<td>". $row["email"]."</td>";
+                                echo "<td>". $row["rating"]."</td>";
                                 echo "<td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>";
                                 echo "<td><form action= 'delete_ad.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Delete</button></form></td>";
                                 echo"<td>";

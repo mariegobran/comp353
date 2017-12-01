@@ -18,7 +18,8 @@
                 include("config.php");
                 include("menu.php");
 
-
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+              if (isset($_POST['buy'])) {
                 $adid=mysqli_real_escape_string($conn,$_POST['buy']);
 
 
@@ -39,6 +40,7 @@
 
                 $description=$row["description"];
                 $AdID= $row["AdID"];
+                $_SESSION['add_to_rate']=$AdID;
                 //$TID= 1;
 
                 //register the transaction
@@ -70,9 +72,75 @@
                 } else{
                   echo "ERROR: Could not able to execute $sql. " . mysqli_error($sql2);
                 }
-
+              }
+            }
             ?>
               <a href='viewAds.php'>Keep Shopping</a>
+
+              <divclass="well well-sm">
+              <h2>Please rate the item that you just bought:</h2>
+              <form action="" name="display" method="POST">
+                    <br>
+
+                    <select name = "rating" class="custom-select">
+                    <option value="1" > 1</option>
+                    <option value="2"> 2</option>
+                    <option value="3"> 3</option>
+                    <option value="4"> 4</option>
+                    <option value="5"> 5</option>
+                    </select>
+                    </br></br>
+                    <input type="submit" name="rate"   class="btn btn-info" value="Rate" />
+              </form> 
+              <?php
+              if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (isset($_POST['rate'])) {
+                  $rating = mysqli_real_escape_string($conn,$_POST['rating']);
+
+
+                  //get the transaction id for the last sold item
+                  $sql1= "SELECT MAX(TID) FROM Transactions";
+                  $result1 = $conn->query($sql1);
+                  $row1 = $result1->fetch_assoc();
+                  $TID= $row1['MAX(TID)'];
+                  
+                  
+                  
+                  //register rating in sold items as individual
+                  $sql="UPDATE soldItems
+                  SET rating = $rating
+                  WHERE TID = '$TID'";
+                  if($result = $conn->query($sql)){
+                    echo "Rating was succesful";
+                  }
+
+                  //register rating in ads table
+                  $adId=$_SESSION['add_to_rate'];
+
+                  $sql="SELECT COUNT(*) as items, SUM(rating) as sum from soldItems
+                   where AdID='$adId' and rating is not NULL";
+                  
+                  $result = $conn->query($sql);
+                  $row = $result->fetch_assoc();
+                  $items=$row['items'];
+                  $sum=$row['sum'];
+                  $total_rating=$sum/$items;
+
+
+                  //register rating in sold items as individual
+                  $sql="UPDATE ads
+                  SET rating = $total_rating
+                  WHERE AdID = '$adId'";
+                  if($result = $conn->query($sql)){
+                    echo "Rating was succesful";
+                    echo "</br> This Item now is rated".$total_rating;
+                  }
+
+                }
+              }
+              
+              ?>     
+              </div>
       </div>   
     </div>     
 
