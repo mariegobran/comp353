@@ -38,12 +38,11 @@ if($_SESSION["usetype"]!= "Admin"){
          <th>user ID</th>
          <th>Date posted</th>
          <th>title</th>
-         <th>edit</th>
        </tr>
      </thead>
      <tbody>
      <?php 
-        $sql = "SELECT * FROM ads ";
+        $sql = "SELECT * FROM ads where deleted is  null";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -55,8 +54,9 @@ if($_SESSION["usetype"]!= "Admin"){
                  <td>" . $row["ownerID"]. "</td>
                  <td>" . $row["datePosted"]. "</td>
                  <td>" . $row["title"]. "</td>
-                 <td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>".
-                 "</tr>";
+                 <td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>
+                 <td><form action= 'delete_ad_admin.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Delete</button></form></td>
+                 </tr>";
             }
         } else {
             echo "0 results";
