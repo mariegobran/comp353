@@ -55,7 +55,7 @@ $row = $result->fetch_assoc();
       //modify in database8
       $sql = "INSERT INTO  ads (title,description,price,isBuying,address,phone,email,isBusiness,image,datePosted,city,promotion,ownerID,category)
       VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image','$datePosted','$city','$promotion','$ownerID','$category')";
-      echo $sql;
+
           if(mysqli_query($conn,$sql)){
               echo "Add succesfully posted";
           }
