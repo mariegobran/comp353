@@ -8,8 +8,28 @@
         $adID = $_POST["Edit"];
     }
 
+    
+// get all the ad data
+$sql = "SELECT * FROM ads ";
+$result = mysqli_query($conn,$sql);
+$row = $result->fetch_assoc();
 
-
+ // save all ad default values
+ 
+ $Title ='' ;
+ $description='' ;
+ $price='' ;
+ $isBuying='';
+ $address='';
+ $phone='';
+ $email='' ;
+ $isBusiness ='' ;
+ $image='' ;
+ $datePosted= '';
+ $city='';
+ $ownerID = '';
+ $promotion='';
+ $category='';
 
     
    //get usetype and userID saved in session and check if the user is not
@@ -24,25 +44,26 @@
    //submit changes
    if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['change'])){
       //get values from the form
-     # $adID = ???
+
       $Title = mysqli_real_escape_string($conn,$_POST['title']);
       $description = mysqli_real_escape_string($conn,$_POST['description']);
       $price = mysqli_real_escape_string($conn,$_POST['price']);
-      #$adType=  ; 
+      $isBuying= mysqli_real_escape_string($conn,$_POST['isBuying']);
       $address = mysqli_real_escape_string($conn,$_POST['address']);
       $phone = mysqli_real_escape_string($conn,$_POST['phone']);
       $email = mysqli_real_escape_string($conn,$_POST['email']);
-    # $owner = $_SESSION['login_user'];
+      $isBusiness = mysqli_real_escape_string($conn,$_POST['isBusiness']);
       $image = mysqli_real_escape_string($conn,$_POST['image']);
+     # $datePosted= 
       $city = mysqli_real_escape_string($conn,$_POST['city']);
       $promotion = mysqli_real_escape_string($conn,$_POST['promotion']);
-      $ownerID= $_SESSION['userID'];
+      $ownerID = $_SESSION['userID'];
       $category = mysqli_real_escape_string($conn,$_POST['category']);
       
       
-      //modify in database
-      $sql = "INSERT INTO  ads
-      VALUES ('$adID','$Title','$description','$price','$adType','$address','$phone','$email', '$owner','$image',$datePosted','$city','$province','$promotion',$ownerID','$category')  
+      //modify in database8
+      $sql = "INSERT INTO  ads (title,description,price,isBuying,address,phone,email,isBusiness,image,datePosted,city,promotion,ownerID,category);
+      VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image',$datePosted','$city','$promotion',$ownerID','$category')  
       WHERE ownerID =  $ownerID ;";
 
       try{
@@ -96,10 +117,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <input class="form-control" type = "email" name = "email" class = "box" value ='<?php echo $email?>'/><br /><br />
                   <label>Image:</label>
                     <input class="form-control" type = "text" name = "image" class = "box" value ='<?php echo $image?>'/><br /><br />
+                
+
                   <label>City:</label>
                     <select name = "city" class="form-control">
                     <optgroup label="Quebec">
-                    <option value="Montreal" > Montreal</option>
+                    <option value="Montreal" >Montreal</option>
                     <option value="Laval"> Laval</option>
                     <option value="Chambly"> Chambly</option>
                     </optgroup>
@@ -152,7 +175,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <option value="Customer Service" > Customer Service</option>
                     <option value="Management" > Management</option>
                     </optgroup>
-                    
                     </select><br /><br /><br />
                   <label>Promotion:</label>
                        <select name = "promotion" class="form-control">      
@@ -162,9 +184,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <option value="60" > 60 Days Promotion</option>
                     </select><br /><br /><br />
 
+
+                    <label>Buy or Sell</label>
+                    <label class="radio-inline">
+                      <input type="radio" name="isBuying" value ="y" >Buy
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="isBuying" value="n">Sell
+                    </label> <br /><br /><br />
+
+
+                    <label>Type of seller:</label>
+                    <label class="radio-inline">
+                      <input type="radio"  name="isBusiness" value ="n" >Personal
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="isBusiness" value="y">Businesss
+                    </label> <br /><br /><br />
+
+
                   <label>Place Ad in physical store ?</label>
                     <label class="radio-inline">
-                      <input type="radio" value = name="optradio">Yes
+                      <input type="radio" name="optradio">Yes
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="optradio">No
