@@ -1,25 +1,7 @@
 <?php session_start(); ?>
 
-<?php function redirect($url)
-{
-    if (!headers_sent())
-    {    
-        header('Location: '.$url);
-        exit;
-        }
-    else
-        {  
-        echo '<script type="text/javascript">';
-        echo 'window.location.href="'.$url.'";';
-        echo '</script>';
-        echo '<noscript>';
-        echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
-        echo '</noscript>'; exit;
-    }
-}
-   ?> 
-
    <?php include("config.php");
+   include("redirect.php");
    
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {

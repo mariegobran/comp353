@@ -26,10 +26,11 @@
                     <form action="" name="display" method="post">
                     <br>
                     
-                    <h2>Choose City and Category:</h2>
-
+                    <h2>Filter your choice by selecting one the desired options above:</h2>
+                    <h4>City</h4>
                     <select name = "city" class="custom-select">
                     <optgroup label="Quebec">
+                    <option></option>
                     <option value="Montreal" > Montreal</option>
                     <option value="Laval"> Laval</option>
                     <option value="Chambly"> Chambly</option>
@@ -55,11 +56,12 @@
                       </select>
                     
                     
-                    
+                    <h4>Category</h4>
                     <select name = "category" class="custom-select">
                     
                     <optgroup label="Buy and Sell">
-                      <option value="Clothing" > Clothing</option>
+                    <option></option>
+                    <option value="Clothing" > Clothing</option>
                     <option value="Books"> Books</option>
                     <option value="Electronics"> Electronics</option>
                     <option value="Musical Instruments"> Musical Instruments</option>
@@ -87,6 +89,22 @@
                     </optgroup>
                     
                     </select>
+
+                    <!-- The above code gets the all users from the database that have posted an add and creates a list of them -->
+                    <?php
+                    $sql="SELECT username FROM users WHERE userID IN ( SELECT DISTINCT(ownerID)  FROM ads)";
+                    $result = $conn->query($sql);
+
+                    echo'<h4>Seller</h4>';
+                    echo '<select name = "seller" class="custom-select">';
+                    echo '<option></option>';
+                    while($row = $result->fetch_assoc()){
+                    $username= $row["username"];
+                    echo'<option value="'.$username.'" > '.$username.'</option>';
+                    }
+                    echo'</select>';
+
+                    ?>
                     </div>
                     <div class="well well-sm">
                     <input type="submit" name="submit"   class="btn btn-info btn-block" value="View ads" />
@@ -105,15 +123,35 @@
             if (isset($_POST['submit'])) {
           $city=mysqli_real_escape_string($conn,$_POST['city']);
           $category=mysqli_real_escape_string($conn,$_POST['category']);
+          
+          $seller=mysqli_real_escape_string($conn,$_POST['seller']);
 
-          $sql = "SELECT * FROM ads WHERE city = '$city' and category = '$category' and deleted is null ";
+          //will not work if 2 users have the same username;
+          $sql= "SELECT userID FROM users WHERE username = '$seller'";
           $result = $conn->query($sql);
-          
-          
-          if ($result->num_rows > 0) {
-            // output data of each row
-              
+          $row = $result->fetch_assoc();
+          $seller_id=$row["userID"];
+          //echo $seller_id;
 
+
+                //the code above filters choices by maniupulating the sql string;
+                $whereClauses = array();
+                if (! empty($_POST['city'])) $whereClauses[] = 'city='."'".$city."'";
+                if (! empty($_POST['category'])) $whereClauses[] ='category='."'".$category."'";
+                if (! empty($_POST['seller'])) $whereClauses[] = 'ownerID='."'".$seller_id."'";
+                
+                $where = '';
+                if (count($whereClauses) > 0) {
+                    $where = 'WHERE '.implode(' AND ',$whereClauses);
+                }
+                
+                
+                $sql = "SELECT * FROM ads ".$where."AND deleted is null";
+                $result = $conn->query($sql);
+                //echo $sql;
+          
+                  // output data of each row
+                 if ($result->num_rows > 0) {
                 echo "<table class='table table-hover'>";
                 echo "<tr>";
                 echo "<td>ID</td>";

@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php  include("config.php");
+       include("redirect.php");
    
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,7 +39,7 @@
    } else{
       echo "ERROR: Could not execute $sql. " ;
   }
-      header ("location: planPurchase.php");
+      redirect("planPurchase.php");
  }
 ?>
 <!DOCTYPE html>

@@ -1,9 +1,16 @@
+<?php
+include("session.php");
+include("config.php");
+include("redirect.php");
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <?php include("bootstrap.php"); ?>
       
-    <title>Registration Page</title>
+    <title>Buy</title>
       
   </head>
 
@@ -14,8 +21,7 @@
       <!-- main content goes here -->
       <div class="row">
             <?php
-                include("session.php");
-                include("config.php");
+                
                 include("menu.php");
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
