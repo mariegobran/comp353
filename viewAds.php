@@ -145,15 +145,21 @@
                     $where = 'WHERE '.implode(' AND ',$whereClauses);
                 }
                 
-                
-                $sql = "SELECT * FROM ads ".$where."AND deleted is null";
+                if ($where != ''){
+                $sql = "SELECT * FROM ads ".$where."AND deleted is null ORDER BY promotion DESC";
+                }
+                else
+                {
+                  $sql = "SELECT * FROM ads WHERE deleted is null ORDER BY promotion DESC";
+                }
                 $result = $conn->query($sql);
-                //echo $sql;
+                
           
                   // output data of each row
                  if ($result->num_rows > 0) {
                 echo "<table class='table table-hover'>";
                 echo "<tr>";
+                echo "<td>My Add</td>";
                 echo "<td>ID</td>";
                 echo "<td>Title</td>";
                 echo "<td>Description</td>";
@@ -164,7 +170,13 @@
                 echo "<td>Rating</td>";
                 echo "</tr>";
                 while($row = $result->fetch_assoc()) {
+                
                 echo "<tr>";
+
+                if($row["ownerID"]==$_SESSION['userID']){
+                  echo "<td>-></td>";
+                }else
+                  echo "<td></td>";
                 echo "<td>". $row["AdID"]."</td>";
                 echo "<td>". $row["title"]."</td>";
                 echo "<td>". $row["description"]."</td>";

@@ -110,7 +110,7 @@
                                 $selected_plan = mysqli_real_escape_string($conn,$_POST['plan']);
                                 echo $selected_plan." Days";
                                 echo "<br>";
-                                $Date=date("Y/m/d"); 
+                                $Date=date("Y-m-d"); 
                                 echo "Date of purchase is " . $Date  . "<br>";
                                 echo "Date of expiration will be: ".date('Y/m/d', strtotime($Date. ' + '.$selected_plan.' days'));
                                 $userID=$_SESSION['userID'];
@@ -154,20 +154,35 @@
 
                          if ($result->num_rows > 0) {
                             // output data of each row
-                              
+                                
                 
                                 echo "<table class='table table-hover'>";
                                 echo "<tr>";
-                                echo "<td>ID</td>";
-                                echo "<td>Title</td>";
-                                echo "<td>Description</td>";
-                                echo "<td>Price</td>";
-                                echo "<td>Address</td>";
-                                echo "<td>Phone</td>";
-                                echo "<td>Email</td>";
-                                echo "<td>Rating</td>";
+                                echo "<th>ID</th>";
+                                echo "<th>Title</th>";
+                                echo "<th>Description</th>";
+                                echo "<th>Price</th>";
+                                echo "<th>Address</th>";
+                                echo "<th>Phone</th>";
+                                echo "<th>Email</th>";
+                                echo "<th>Rating</th>";
+                                echo "<th>Status</th>";
                                 echo "</tr>";
                                 while($row = $result->fetch_assoc()) {
+                                
+                                //check if ad is expired
+                                $datePosted=$row["datePosted"];
+                                $promotion=$row["promotion"];  
+                                $ad_expiration =date('Y-m-d', strtotime($datePosted. ' + '.$promotion.' days'));  
+                                $Today=date("Y-m-d"); 
+
+                                if(strtotime($Today) > strtotime($ad_expiration)){
+                                    $Validity='Expired';
+                                }
+                                else{
+                                    $Validity='Valid';
+                                }
+                                
                                 echo "<tr>";
                                 echo "<td>". $row["AdID"]."</td>";
                                 echo "<td>". $row["title"]."</td>";
@@ -177,6 +192,7 @@
                                 echo "<td>". $row["phone"]."</td>";
                                 echo "<td>". $row["email"]."</td>";
                                 echo "<td>". $row["rating"]."</td>";
+                                echo "<td>". $Validity."</td>";
                                 echo "<td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>";
                                 echo "<td><form action= 'delete_ad.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Delete</button></form></td>";
                                 echo"<td>";
@@ -197,7 +213,7 @@
                         
                         </div>
                         <div class="well well-sm">
-                           <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST AD</a> <br /><br /><br />
+                           <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST NEW AD</a> <br /><br /><br />
             			</div>
             </div>		
             </div>
