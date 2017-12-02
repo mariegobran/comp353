@@ -25,21 +25,13 @@ $row = $result->fetch_assoc();
  $email='' ;
  $isBusiness ='' ;
  $image='' ;
- $datePosted= '';
+ $datePosted= date('Y-m-d');
  $city='';
- $ownerID = '';
+ $ownerID = $_SESSION['userID'];
  $promotion='';
  $category='';
 
-    
-   //get usetype and userID saved in session and check if the user is not
-   // either the admin or the ad owner (then they're not allowed to modify the ad)
-   if(!($_SESSION['usetype']=="Admin" || $_SESSION['userID']== $ownerID)){
-       header ("location: index.php");
-   }
-
-
-   
+       
 
    //submit changes
    if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['change'])){
@@ -54,7 +46,6 @@ $row = $result->fetch_assoc();
       $email = mysqli_real_escape_string($conn,$_POST['email']);
       $isBusiness = mysqli_real_escape_string($conn,$_POST['isBusiness']);
       $image = mysqli_real_escape_string($conn,$_POST['image']);
-     # $datePosted= 
       $city = mysqli_real_escape_string($conn,$_POST['city']);
       $promotion = mysqli_real_escape_string($conn,$_POST['promotion']);
       $ownerID = $_SESSION['userID'];
@@ -62,20 +53,16 @@ $row = $result->fetch_assoc();
       
       
       //modify in database8
-      $sql = "INSERT INTO  ads (title,description,price,isBuying,address,phone,email,isBusiness,image,datePosted,city,promotion,ownerID,category);
-      VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image',$datePosted','$city','$promotion',$ownerID','$category')  
-      WHERE ownerID =  $ownerID ;";
-
-      try{
+      $sql = "INSERT INTO  ads (title,description,price,isBuying,address,phone,email,isBusiness,image,datePosted,city,promotion,ownerID,category)
+      VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image','$datePosted','$city','$promotion','$ownerID','$category')";
+      echo $sql;
           if(mysqli_query($conn,$sql)){
               echo "Add succesfully posted";
-              header("location: manage_users_ads.php");
           }
-          
-      }catch(Exception $e){
-          echo $e;
+          else{
+            echo "Did not post";
+          }
       }
-}//end of if statement for post method "change"
    // cancel and go to manage ads (for user) or manage user ads (for Admin)
 if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
   if($_SESSION["usetype"]=="Admin"){
@@ -178,7 +165,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     </select><br /><br /><br />
                   <label>Promotion:</label>
                        <select name = "promotion" class="form-control">      
-                    <option value="NULL" > No Promotion</option>
+                    <option value="0" > No Promotion</option>
                     <option value="7" > 7 Days Promotion</option>
                     <option value="30" > 30 Days Promotion</option>
                     <option value="60" > 60 Days Promotion</option>
