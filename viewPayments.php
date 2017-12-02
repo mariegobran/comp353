@@ -30,7 +30,7 @@ $(document).ready(function(){
    <?php include("menu.php"); ?>
    <div class="container">
    <h2>Users payments</h2>                            
-   <table class="table table-hover">
+   <table id="payments" class="table table-hover">
      <thead>
        <tr>
          <th>#</th>
@@ -87,6 +87,12 @@ $(document).ready(function(){
      </tbody>
    </table>
    </div>
+   <script src="js/FileSaver.min.js" type="text/javascript"></script>
+<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="js/tableexport.min.js" type="text/javascript"></script>
+<script>
+    $('#payments').tableExport();
+</script>
    </body>
 
 </html>
