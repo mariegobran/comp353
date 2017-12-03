@@ -43,7 +43,7 @@ if($_SESSION["usetype"]!= "Admin"){
      </thead>
      <tbody>
      <?php 
-        $sql = "SELECT * FROM ads where deleted is  null";
+        $sql = "SELECT * FROM ads where deleted is null";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {

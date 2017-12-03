@@ -4,9 +4,6 @@
    error_reporting(E_ALL);
    ini_set('display_errors','On');
    $adID ="";
-   if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['Edit'])){
-        $adID = $_POST["Edit"];
-    }
 
     
 // get all the ad data
@@ -57,12 +54,37 @@ $row = $result->fetch_assoc();
       VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image','$datePosted','$city','$promotion','$ownerID','$category')";
 
           if(mysqli_query($conn,$sql)){
-              echo "Add succesfully posted";
+              echo "<h4>Add succesfully posted</h4>";
           }
           else{
-            echo "Did not post";
+            echo "<h4>Did not post</h4>";
           }
+          //check if a promotion is selected
+      $promotion= mysqli_real_escape_string($conn,$_POST['promotion']);
+      if ($promotion > 0){
+
+        $sql4 = "SELECT price FROM Promotion WHERE numOfDays = $promotion";
+        $result4 = $conn->query($sql4);
+        $row4 = $result4->fetch_assoc();
+       
+        $price= $row4['price'];
+        $date = date('Y-m-d');
+        $buyerID = $_SESSION['userID'];
+        $card = $_SESSION['card'];
+
+
+
+        //register the transaction
+        $sql5 = "INSERT INTO Transactions (`purchaseType`, `date`, `bill`, `is_item`, `buyerID`, `sellerID`, `card`)
+        VALUES('promotion', '$date', '$price', '0', '$buyerID', '68', '$card')";
+        if ($result5 = $conn->query($sql5)){
+          echo "<br>Great success, your card has been charged for the promotion";
+        }
       }
+      
+      
+        }//end of if form is submited
+
    // cancel and go to manage ads (for user) or manage user ads (for Admin)
 if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
   if($_SESSION["usetype"]=="Admin"){
@@ -79,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
    <head>
    <link rel="stylesheet" href="styles.css">
    <?php include("bootstrap.php"); ?>
-    <title>Edit Ad</title>
+    <title>New Ad</title>
       
    </head>
    
@@ -89,25 +111,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
         <div class="row">
             <div class="col-sm-2" style="background-color:lavender;"></div>
             <div class="col-sm-8">
+            <div class="well well-sm">
+            
+            <table>
                <form action = "" method = "post" class="form-horizontal">
-                  <label>Title:</label>
-                    <input class="form-control" type = "text" name = "title" class = "box" value = '<?php echo $Title?>'/><br/><br />
-                  <label>Description:</label>
-                    <input class="form-control" type = "text" name = "description" class = "box" value ='<?php echo $description?>' /><br/><br />
-                  <label>Price:</label>
-                    <input class="form-control" type = "number" step=".05" name = "price" class = "box" value ='<?php echo $price?>'/><br /><br />
-                  <label>Address:</label>
-                    <input class="form-control" type = "text" name = "address" class = "box" value ='<?php echo $address?>'/><br /><br />
-                  <label>Phone:</label>
-                    <input class="form-control" type = "number" name = "phone" class = "box" value = '<?php echo $phone?>'/><br /><br />
-                  <label>Email:</label>
-                    <input class="form-control" type = "email" name = "email" class = "box" value ='<?php echo $email?>'/><br /><br />
-                  <label>Image:</label>
-                    <input class="form-control" type = "text" name = "image" class = "box" value ='<?php echo $image?>'/><br /><br />
-                
-
-                  <label>City:</label>
-                    <select name = "city" class="form-control">
+             <tr>  
+                    <td><label>Title:</label></td>
+                    <td><input class="form-control" type = "text" name = "title" class = "box" value = '<?php echo $Title?>'/></td>
+             </tr>   
+             <tr>  
+                  <td><label>Description:</label></td>
+                    <td><input class="form-control" type = "text" name = "description" class = "box" value ='<?php echo $description?>' /></td>
+             </tr> 
+             <tr>    
+                  <td><label>Price:</label></td>
+                    <td><input class="form-control" type = "number" step=".05" name = "price" class = "box" value ='<?php echo $price?>'/></td>
+              </tr>     
+              <tr>   
+                  <td><label>Address:</label></td>
+                    <td><input class="form-control" type = "text" name = "address" class = "box" value ='<?php echo $address?>'/></td>
+              </tr>  
+              <tr>  
+                  <td><label>Phone:</label></td>
+                   <td> <input class="form-control" type = "number" name = "phone" class = "box" value = '<?php echo $phone?>'/></td>
+              </tr>     
+              <tr>     
+                 <td> <label>Email:</label></td>
+                    <td><input class="form-control" type = "email" name = "email" class = "box" value ='<?php echo $email?>'/></td>
+              </tr>   
+              <tr>    
+                  <td><label>Image:</label></td>
+                   <td> <input class="form-control" type = "text" name = "image" class = "box" value ='<?php echo $image?>'/></td>
+              </tr>   
+              <tr>
+                 <td> <label>City:</label></td>
+                   <td> 
+                   <select name = "city" class="form-control">
                     <optgroup label="Quebec">
                     <option value="Montreal" >Montreal</option>
                     <option value="Laval"> Laval</option>
@@ -131,8 +170,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <option value="Calgary"> Calgary</optiobr>
                     <option value="LethBridge"> LethBridge</option>
                       </optgroup>
-                      </select> <br /><br /><br />
-                  <label>Category:</label>
+                      </select> 
+                   </tr>
+                   <tr>   
+
+                  <td><label>Category:</label></td>
+                  <td>
                   <select name = "category" class="form-control">
                     
                     <optgroup label="Buy and Sell">
@@ -162,51 +205,69 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <option value="Customer Service" > Customer Service</option>
                     <option value="Management" > Management</option>
                     </optgroup>
-                    </select><br /><br /><br />
-                  <label>Promotion:</label>
-                       <select name = "promotion" class="form-control">      
+                    </select>
+                    </td>
+                 </tr> 
+
+                 <tr>
+                 <td> <label>Promotion:</label></td>
+                    <td>
+                    <select name = "promotion" class="form-control">      
                     <option value="0" > No Promotion</option>
                     <option value="7" > 7 Days Promotion</option>
                     <option value="30" > 30 Days Promotion</option>
                     <option value="60" > 60 Days Promotion</option>
-                    </select><br /><br /><br />
+                    </select>
+                    </td>
+                  </tr>
 
-
-                    <label>Buy or Sell</label>
-                    <label class="radio-inline">
+                    <tr>
+                   <td> <h5>Buy or Sell</h5></td>
+                    <td><label class="radio-inline">
                       <input type="radio" name="isBuying" value ="y" >Buy
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="isBuying" value="n">Sell
-                    </label> <br /><br /><br />
+                    </label> 
+                    </td>
+                    </tr>
 
-
-                    <label>Type of seller:</label>
+                    <tr>
+                    
+                    <td><h5>Type of seller:</h5></td>
+                    <td>
                     <label class="radio-inline">
                       <input type="radio"  name="isBusiness" value ="n" >Personal
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="isBusiness" value="y">Businesss
-                    </label> <br /><br /><br />
+                    </label> 
+                    </td>
+                    </tr>
 
-
-                  <label>Place Ad in physical store ?</label>
+                    <tr>
+                    
+                    <td> <h5>Place Ad in physical store?</h5></td>
+                   <td>
                     <label class="radio-inline">
                       <input type="radio" name="optradio">Yes
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="optradio">No
-                    </label> <br /><br /><br />
-                  
-             
+                    </label> 
+                    </tr>
+                    </td>
 
-
-                 <div align ="center">
-                  <input class="btn btn-default" type = "submit" name= "change" value = "Submit Ad"/>
+                    <tr>
+                    <td>
+                    <input class="btn btn-default" type = "submit" name= "change" value = "Submit Ad"/>
                   <input class="btn btn-default" type = "Reset">
                   <a href= 'account.php' type="button" class="btn btn-default">Cancel</a> 
-                </div>
+                    </td>
+                    </tr>
                </form>
+               </table>
+               </div>
             </div>   
             <div class="col-sm-2" style="background-color:lavender;"></div>   
 		</div>		

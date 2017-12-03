@@ -81,7 +81,7 @@ include("redirect.php");
               }
             }
             ?>
-              <a href='viewAds.php'>Keep Shopping</a>
+              
 
               <divclass="well well-sm">
               <h2>Please rate the item that you just bought:</h2>
@@ -116,9 +116,7 @@ include("redirect.php");
                   $sql="UPDATE soldItems
                   SET rating = $rating
                   WHERE TID = '$TID'";
-                  if($result = $conn->query($sql)){
-                    echo "Rating was succesful";
-                  }
+                  if($result = $conn->query($sql))
 
                   //register rating in ads table
                   $adId=$_SESSION['add_to_rate'];
@@ -131,6 +129,7 @@ include("redirect.php");
                   $items=$row['items'];
                   $sum=$row['sum'];
                   $total_rating=$sum/$items;
+                  $total_rating=round($total_rating, 2);
 
 
                   //register rating in sold items as individual
@@ -138,14 +137,15 @@ include("redirect.php");
                   SET rating = $total_rating
                   WHERE AdID = '$adId'";
                   if($result = $conn->query($sql)){
-                    echo "Rating was succesful";
-                    echo "</br> This Item now is rated".$total_rating;
+                    echo "<h3>Rating was succesful</h3>";
+                    echo "</br> <h3>This Item now is rated ".$total_rating."</h3>";
                   }
 
                 }
               }
               
-              ?>     
+              ?> 
+              <input type='button'> <h2><a href='viewAds.php'>Keep Shopping</a></h2> </input>   
               </div>
       </div>   
     </div>     
