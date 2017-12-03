@@ -43,7 +43,7 @@ $(document).ready(function(){
      </thead>
      <tbody>
      <?php 
-        $sql = "SELECT * FROM transactions ";
+        $sql = "SELECT * FROM Transactions";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
