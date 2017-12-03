@@ -5,7 +5,7 @@
           </head>
 <?php
 //the menu if the user is not logged in
-    if (!isset($_SESSION['login_user'])){
+    if (($_SESSION['login_user'])==null){
  echo " <nav class='navbar navbar-inverse'>
           <div class='container-fluid'>
             <div class='navbar-header'>

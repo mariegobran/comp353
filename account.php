@@ -2,8 +2,8 @@
       include("config.php");
 ?> 
 <?php 
- if(!isset($_SESSION["userID"]){
-    header("location: index.php");
+ if(!isset($_SESSION["userID"])){
+    header("location: index.php ");
 }
 function redirect($url)
 {
