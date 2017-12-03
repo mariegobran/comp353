@@ -138,14 +138,14 @@ include("redirect.php");
                   WHERE AdID = '$adId'";
                   if($result = $conn->query($sql)){
                     echo "<h3>Rating was succesful</h3>";
-                    echo "</br> <h3>This Item now is rated ".$total_rating."</h3>";
+                    echo "</br> <h3>This Item now is rated ".$total_rating." / 5  Stars</h3>";
                   }
 
                 }
               }
               
               ?> 
-              <input type='button'> <h2><a href='viewAds.php'>Keep Shopping</a></h2> </input>   
+             <h2><a href='viewAds.php'>Keep Shopping</a></h2> 
               </div>
       </div>   
     </div>     
