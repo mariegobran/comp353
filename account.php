@@ -122,7 +122,7 @@ function redirect($url)
                                 SET plan = '$selected_plan'
                                 WHERE userID = ' $userID'";
                                 $result = $conn->query($sql);
-                                echo "<br>Refresh the page to viw the changes";
+                                echo "<br>Refresh the page to view the changes";
 
                                 //To Do: Add payment in to transcation
                                 
@@ -136,6 +136,10 @@ function redirect($url)
 
                                 $card= $_SESSION['card'];
                                 
+                                //redirect to planPurchase page if the user didn't add a card yet
+                                if($card==0){
+                                    redirect("planPurchase.php");
+                                }
 
                                 $sql= "INSERT INTO Transactions (purchaseType, date, bill, is_item, buyerID, sellerID, card)
                                 VALUES('plan_purchase', '$Date', '$price', 0, '$userID', 1, '$card')";

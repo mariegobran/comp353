@@ -3,8 +3,20 @@
    include("config.php");
    error_reporting(E_ALL);
    ini_set('display_errors','On');
+   include("redirect.php");
+   
    $adID ="";
-
+//if the user have a free plan, redirect to plan purchase page
+if(isset($_SESSION["userID"])){
+  $userID = $_SESSION['userID'];
+  $sql= "SELECT * FROM users WHERE userID = $userID";
+  $result = mysqli_query($conn,$sql);
+  $row = $result->fetch_assoc();
+  $plan =$row['plan'];
+  if ($plan==0){
+    redirect("planPurchase.php");
+  }
+}
     
 // get all the ad data
 $sql = "SELECT * FROM ads ";
