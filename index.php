@@ -7,9 +7,9 @@
    if($_SERVER["REQUEST_METHOD"] == "POST") {
      
     // username and password sent from form 
-
-      $myusername = mysqli_real_escape_string($conn,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($conn,$_POST['password']);  
+      if(isset($_POST['username']) && isset($_POST['password'])){
+        $myusername = mysqli_real_escape_string($conn,$_POST['username']);
+        $mypassword = mysqli_real_escape_string($conn,$_POST['password']);
       
       $sql = "SELECT * FROM users WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($conn,$sql);
@@ -33,6 +33,9 @@
         redirect("viewAds.php");
        }
        else redirect("assumptions.txt");
+
+      }
+      else echo "please enter your username & password";
        
     }else {
        $error = "Your Login Name or Password is invalid";

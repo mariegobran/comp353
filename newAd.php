@@ -54,7 +54,7 @@ $row = $result->fetch_assoc();
       VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image','$datePosted','$city','$promotion','$ownerID','$category')";
 
           if(mysqli_query($conn,$sql)){
-              echo "<h4>Add succesfully posted</h4>";
+              echo "<h4>Ad succesfully posted</h4>";
           }
           else{
             echo "<h4>Did not post</h4>";

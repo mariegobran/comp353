@@ -2,7 +2,11 @@
 <?php include("session.php"); 
       include("config.php");
 ?> 
-<?php function redirect($url)
+<?php 
+ if(!isset($_SESSION["userID"]){
+    header("location: index.php");
+}
+function redirect($url)
 {
     if (!headers_sent())
     {    
