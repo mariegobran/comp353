@@ -1,0 +1,5 @@
+-Promotion is per ad basis, places ad on a higher ranking along with other promoted ads
+-Each ad can only have 1 image
+-If the user pays for a higher membership plan, ads that were previously expired can potentially return to the listing
+-Cannot buy online
+-Rating is done through a flagging system
