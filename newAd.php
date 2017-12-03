@@ -81,6 +81,8 @@ $row = $result->fetch_assoc();
           echo "<br>Great success, your card has been charged for the promotion";
         }
       }
+
+
       
       
         }//end of if form is submited
@@ -246,17 +248,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     </tr>
 
                     <tr>
-                    
-                    <td> <h5>Place Ad in physical store?</h5></td>
-                   <td>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Yes
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">No
-                    </label> 
-                    </tr>
-                    </td>
 
                     <tr>
                     <td>
