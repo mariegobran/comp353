@@ -13,8 +13,8 @@ while($row = $result->fetch_assoc()){
         $sql1="UPDATE ads
         SET promotion = 0 WHERE AdID=$id "; 
         if($result1 = $conn->query($sql1)){
-        echo "success";
-        echo $row["AdID"];
+        //echo "success";
+        //echo $row["AdID"];
     }
     }
 }
