@@ -59,7 +59,7 @@ $row = $result->fetch_assoc();
       $promotion = mysqli_real_escape_string($conn,$_POST['promotion']);
       $ownerID = $_SESSION['userID'];
       $category = mysqli_real_escape_string($conn,$_POST['category']);
-      
+      $rentAStore= mysqli_real_escape_string($conn,$_POST['rent']);
       
       //modify in database8
       $sql = "INSERT INTO  ads (title,description,price,isBuying,address,phone,email,isBusiness,image,datePosted,city,promotion,ownerID,category)
@@ -72,7 +72,6 @@ $row = $result->fetch_assoc();
             echo "<h4>Did not post</h4>";
           }
           //check if a promotion is selected
-      $promotion= mysqli_real_escape_string($conn,$_POST['promotion']);
       if ($promotion > 0){
 
         $sql4 = "SELECT price FROM Promotion WHERE numOfDays = $promotion";
@@ -84,17 +83,27 @@ $row = $result->fetch_assoc();
         $buyerID = $_SESSION['userID'];
         $card = $_SESSION['card'];
 
-
-
         //register the transaction
         $sql5 = "INSERT INTO Transactions (`purchaseType`, `date`, `bill`, `is_item`, `buyerID`, `sellerID`, `card`)
         VALUES('promotion', '$date', '$price', '0', '$buyerID', '68', '$card')";
         if ($result5 = $conn->query($sql5)){
           echo "<br>Great success, your card has been charged for the promotion";
         }
-      }
+      }//end of if statement for promotion transactions
 
+        //redirect user to RentAStore page if he chooses yes
 
+        if($rentAStore=='y'){
+          //get the posted adID
+          $splAdID= "SELECT * FROM ads WHERE ownerID = $ownerID AND datePosted = '$datePosted'";
+          $result = $conn->query($splAdID);
+          $row = $result->fetch_assoc();
+
+          $_SESSION['adID']= $row['AdID'];
+
+          redirect("RentAStore.php");
+
+        }//end of rent a store (if statement)
       
       
         }//end of if form is submited
@@ -255,6 +264,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="isBusiness" value="y">Businesss
+                    </label> 
+                    </td>
+                    </tr>
+
+
+                    <tr>
+                    
+                    <td><h5>Do you want to rent a store?</h5></td>
+                    <td>
+                    <label class="radio-inline">
+                      <input type="radio"  name="rent" value ="n" >no
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="rent" value="y">yes
                     </label> 
                     </td>
                     </tr>

@@ -202,7 +202,7 @@ function redirect($url)
                                 echo "<td>". $Validity."</td>";
                                 echo "<td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>";
                                 echo "<td><form action= 'delete_ad.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Delete</button></form></td>";
-                                echo "<td><form action= 'store.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Ad to Store</button></form></td>";
+                                echo "<td><form action= 'RentAStore.php' method='POST'><button type='submit' name='rentStore' value='" . $row["AdID"]. "' >Add to Store</button></form></td>";
                                 echo"<td>";
                                 
                               

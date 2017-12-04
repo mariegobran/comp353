@@ -92,7 +92,7 @@
                     
                     </select>
 
-                    <!-- The above code gets the all users from the database that have posted an add and creates a list of them -->
+                    <!-- The code below gets all the users from the database that have posted an add and creates a list of them -->
                     <?php
                     $sql="SELECT username FROM users WHERE userID IN ( SELECT DISTINCT(ownerID)  FROM ads)";
                     $result = $conn->query($sql);
