@@ -2,6 +2,7 @@
 
    <?php include("config.php");
    include("redirect.php");
+   include("promotionValidation.php");
    
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {

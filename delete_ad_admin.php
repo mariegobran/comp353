@@ -21,8 +21,6 @@ function redirect($url)
    include("config.php");
    include("session.php");
   
-
-
    // get all the ad data
    if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['Delete'])){
    
