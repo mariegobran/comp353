@@ -1,7 +1,11 @@
 <?php include("session.php"); 
       include("config.php");
 ?> 
-<?php function redirect($url)
+<?php 
+ if(!isset($_SESSION["userID"])){
+    header("location: index.php ");
+}
+function redirect($url)
 {
     if (!headers_sent())
     {    
@@ -118,7 +122,7 @@
                                 SET plan = '$selected_plan'
                                 WHERE userID = ' $userID'";
                                 $result = $conn->query($sql);
-                                echo "<br>Refresh the page to viw the changes";
+                                echo "<br>Refresh the page to view the changes";
 
                                 //To Do: Add payment in to transcation
                                 
@@ -132,6 +136,10 @@
 
                                 $card= $_SESSION['card'];
                                 
+                                //redirect to planPurchase page if the user didn't add a card yet
+                                if($card==0){
+                                    redirect("planPurchase.php");
+                                }
 
                                 $sql= "INSERT INTO Transactions (purchaseType, date, bill, is_item, buyerID, sellerID, card)
                                 VALUES('plan_purchase', '$Date', '$price', 0, '$userID', 1, '$card')";
@@ -194,7 +202,56 @@
                                 echo "<td>". $Validity."</td>";
                                 echo "<td><form action= 'edit_ad.php' method='POST'><button type='submit' name='Edit' value='" . $row["AdID"]. "' >Edit</button></form></td>";
                                 echo "<td><form action= 'delete_ad.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Delete</button></form></td>";
-                                echo "<td><form action= 'store.php' method='POST'><button type='submit' name='Delete' value='" . $row["AdID"]. "' >Ad to Store</button></form></td>";
+                                echo "<td><form action= 'RentAStore.php' method='POST'><button type='submit' name='rentStore' value='" . $row["AdID"]. "' >Add to Store</button></form></td>";
+                                echo"<td>";
+                                
+                              
+                                echo"</td>";
+                                echo "</tr>";
+                              }
+                              echo "</table>";
+                          
+                            }
+                
+                        
+                       ?>
+
+                        
+
+                        
+                        </div>
+                        <div class="well well-sm">
+                           <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST NEW AD</a> <br /><br /><br />
+            			</div>
+
+                            <!-- Store Bookings-->
+                        <div class="well well-sm">
+                       <h2>My Upcoming Store bookings</h2>
+                       <?php
+                            $user=$_SESSION['userID'];
+                            $sql = "SELECT * FROM storebookings WHERE userID=$user AND date>= CURDATE()";
+                            $result = $conn->query($sql);
+
+                         if ($result->num_rows > 0) {
+                            // output data of each row
+        
+                                echo "<table class='table table-hover'>";
+                                echo "<tr>";
+                                echo "<th>Appointment #</th>";
+                                echo "<th>Ad #</th>";
+                                echo "<th>date</th>";
+                                echo "<th>time</th>";
+                                echo "<th>Store #</th>";
+                                echo "</tr>";
+                                while($row = $result->fetch_assoc()) {
+                                $time    = strtotime($row['time']);
+                         
+                                echo "<tr>";
+                                echo "<td>". $row["AppID"]."</td>";
+                                echo "<td>". $row["AdID"]."</td>";
+                                echo "<td>". $row["date"]."</td>";
+                                echo "<td>". date('H:i',$time)."</td>";
+                                echo "<td>". $row["SLnum"]."</td>";
                                 echo"<td>";
                                 
                               
@@ -207,14 +264,7 @@
                 
                           $conn->close();
                        ?>
-
-                        
-
-                        
                         </div>
-                        <div class="well well-sm">
-                           <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST NEW AD</a> <br /><br /><br />
-            			</div>
             </div>		
             </div>
         <!--end container div-->
