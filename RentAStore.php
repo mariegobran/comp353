@@ -70,6 +70,58 @@ $(function() {
    </head>
    
    <body bgcolor = "#FFFFFF">
+   <?php
+//the menu if the user is not logged in
+    if (!isset($_SESSION['login_user']) || ($_SESSION['login_user'])==null  ){
+ echo " <nav class='navbar navbar-inverse'>
+          <div class='container-fluid'>
+            <div class='navbar-header'>
+              <a class='navbar-brand' href='#'>OCN</a>
+            </div>
+            <ul class='nav navbar-nav'>
+              <li class='active'><a href='register.php'>Register</a></li>
+              <li class='active'><a href='index.php'>Log In</a></li>
+            </ul>
+          </div>
+        </nav>";
+
+
+
+    }else {
+        //the menu if the user is logged in
+        $username = $_SESSION['login_user']; // username 
+        $userType = $_SESSION['usetype']; // user type regular or admin, this should be extracted from the database
+       
+        echo " <nav class='navbar navbar-inverse'>
+        <div class='container-fluid'>
+          <div class='navbar-header'>
+            <a class='navbar-brand' href='#'>Welcome ". $username ."</a>
+          </div>
+          <ul class='nav navbar-nav'>
+            <li class='active'><a href='viewAds.php' >Browse Ads</a></li>
+            <li class='active'><a href='account.php'>My Account</a></li>
+            <li class='active'><a href='logout.php'>Logout</a></li>
+          </ul>
+        </div>
+      </nav>";
+
+
+        if($userType=='Admin'){ 
+          // the menu part only for admin users
+            echo " <nav class='navbar navbar-inverse'>
+            <div class='container-fluid'>
+              
+              <ul class='nav navbar-nav'>
+                <li class='active'><a href='viewPayments.php'>View payments</a></li>
+                <li class='active'><a href='manage_users_ads.php'>Manage users ads</a></li
+              </ul>
+            </div>
+          </nav>";
+
+            }
+
+        }
+?>
       <div class = "container">
         <div class="row">
             <div class="col-sm-2" style="background-color:lavender;"></div>
@@ -267,23 +319,25 @@ $(function() {
                     
                                     }
                                     // print transaction
-                                    echo"";
-                                    echo"go back to account";
+                                    $hoursByPrice = $hourCharge*$numOfHours;
+                                    echo"Here is your transaction details:<br>
+                                            Total booked hours price&emsp; ".($hoursByPrice)."<br>
+                                            + extra weekend charge:&emsp;".(($hoursByPrice*$extraCharge)-$hoursByPrice)."<br>
+                                            + Delivery charge &emsp; &emsp; ".($deliveryCharge*$numOfHours)."<br>
+                                            * credit card use percentage ".(($creditPercentage-1)*100)."<br>
+                                            Total Rent fees &emsp; &emsp;".($rentTotal)."<br>";
+                                    echo"your can now go back to myaccount";
                                 }else{//print the availabilty of this day
                                     echo $bookedHours;
                                 }
 
-                                }
+                            }
                                 
 
-                            }
+                        }
                             
                 }else{
                     echo "Check all the fields to successfuly rent a store!";
-                    $sql = "SELECT * FROM STOREBOOKINGS";
-                    $result = $conn->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo $row['time'];
                 }            
              
             

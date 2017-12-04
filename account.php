@@ -213,7 +213,7 @@ function redirect($url)
                           
                             }
                 
-                          $conn->close();
+                        
                        ?>
 
                         
@@ -223,6 +223,48 @@ function redirect($url)
                         <div class="well well-sm">
                            <a href= 'newAd.php' type="button" class="btn btn-primary btn-block">POST NEW AD</a> <br /><br /><br />
             			</div>
+
+                            <!-- Store Bookings-->
+                        <div class="well well-sm">
+                       <h2>My Upcoming Store bookings</h2>
+                       <?php
+                            $user=$_SESSION['userID'];
+                            $sql = "SELECT * FROM storebookings WHERE userID=$user AND date>= CURDATE()";
+                            $result = $conn->query($sql);
+
+                         if ($result->num_rows > 0) {
+                            // output data of each row
+        
+                                echo "<table class='table table-hover'>";
+                                echo "<tr>";
+                                echo "<th>Appointment #</th>";
+                                echo "<th>Ad #</th>";
+                                echo "<th>date</th>";
+                                echo "<th>time</th>";
+                                echo "<th>Store #</th>";
+                                echo "</tr>";
+                                while($row = $result->fetch_assoc()) {
+                                $time    = strtotime($row['time']);
+                         
+                                echo "<tr>";
+                                echo "<td>". $row["AppID"]."</td>";
+                                echo "<td>". $row["AdID"]."</td>";
+                                echo "<td>". $row["date"]."</td>";
+                                echo "<td>". date('H:i',$time)."</td>";
+                                echo "<td>". $row["SLnum"]."</td>";
+                                echo"<td>";
+                                
+                              
+                                echo"</td>";
+                                echo "</tr>";
+                              }
+                              echo "</table>";
+                          
+                            }
+                
+                          $conn->close();
+                       ?>
+                        </div>
             </div>		
             </div>
         <!--end container div-->
