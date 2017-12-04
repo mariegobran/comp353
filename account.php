@@ -47,8 +47,8 @@
 
           <div class="well well-sm">
                 <?php
-                    $myusername=$_SESSION['login_user'];
-                    $sql = "SELECT plan FROM users WHERE username = '$myusername'";
+                    $userID=$_SESSION['userID'];
+                    $sql = "SELECT plan FROM users WHERE userID = '$userID'";
                     $result = mysqli_query($conn,$sql);
                     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 
