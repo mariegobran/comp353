@@ -1,4 +1,6 @@
-<?php include("session.php"); ?> 
+<?php include("session.php"); 
+
+?> 
           
         <html>
           
@@ -26,7 +28,7 @@
                     <form action="" name="display" method="post">
                     <br>
                     
-                    <h2>Filter your choice by selecting one the desired options above:</h2>
+                    <h2>Filter your choice by selecting one the desired options below:</h2>
                     <h4>City</h4>
                     <select name = "city" class="custom-select">
                     <optgroup label="Quebec">
@@ -90,7 +92,7 @@
                     
                     </select>
 
-                    <!-- The above code gets the all users from the database that have posted an add and creates a list of them -->
+                    <!-- The code below gets all the users from the database that have posted an add and creates a list of them -->
                     <?php
                     $sql="SELECT username FROM users WHERE userID IN ( SELECT DISTINCT(ownerID)  FROM ads)";
                     $result = $conn->query($sql);
@@ -113,32 +115,32 @@
                     
                     </form>
                     
-                    <?php
+<?php
 
-                    //get all the ids form the store ad table and put them in $row1
+ //get all the ids form the store ad table and put them in $row1
 
 
-                    //something posted
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['submit'])) {
-          $city=mysqli_real_escape_string($conn,$_POST['city']);
-          $category=mysqli_real_escape_string($conn,$_POST['category']);
+//something posted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['submit'])) {
+    $city=mysqli_real_escape_string($conn,$_POST['city']);
+    $category=mysqli_real_escape_string($conn,$_POST['category']);
           
-          $seller=mysqli_real_escape_string($conn,$_POST['seller']);
+    $seller=mysqli_real_escape_string($conn,$_POST['seller']);
+          
+      //will not work if 2 users have the same username;
+      $sql= "SELECT userID FROM users WHERE username = '$seller'";
+      $result = $conn->query($sql);
+      $row = $result->fetch_assoc();
+      $seller_id=$row["userID"];
+      //echo $seller_id;
 
-          //will not work if 2 users have the same username;
-          $sql= "SELECT userID FROM users WHERE username = '$seller'";
-          $result = $conn->query($sql);
-          $row = $result->fetch_assoc();
-          $seller_id=$row["userID"];
-          //echo $seller_id;
 
-
-                //the code above filters choices by maniupulating the sql string;
-                $whereClauses = array();
-                if (! empty($_POST['city'])) $whereClauses[] = 'city='."'".$city."'";
-                if (! empty($_POST['category'])) $whereClauses[] ='category='."'".$category."'";
-                if (! empty($_POST['seller'])) $whereClauses[] = 'ownerID='."'".$seller_id."'";
+      //the code above filters choices by maniupulating the sql string;
+       $whereClauses = array();
+      if (! empty($_POST['city'])) $whereClauses[] = 'city='."'".$city."'";
+      if (! empty($_POST['category'])) $whereClauses[] ='category='."'".$category."'";
+      if (! empty($_POST['seller'])) $whereClauses[] = 'ownerID='."'".$seller_id."'";
                 
                 $where = '';
                 if (count($whereClauses) > 0) {
