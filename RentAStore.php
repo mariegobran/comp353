@@ -194,7 +194,6 @@ $(function() {
                                         VALUES ($userID,$AdID,'$day','$hourBooking',$SLnum);";
                                   
                                         if(mysqli_query($conn, $sql)){
-                                            echo "hour booked: $hourBooking<br>";
                                             $counter--;
                                             
                                             $hourBooking=strtotime( "+60 minutes", strtotime($hourBooking) );
@@ -202,8 +201,7 @@ $(function() {
                                             $hourBooking.=":00";
                                             
                                         }
-                                        
-
+                
                                     }
                                     //add ad to store ads
                                     $sql = "INSERT INTO storeads (deliveryAvailable, AdID, SLnum) 
@@ -261,13 +259,16 @@ $(function() {
                                     
                     
                                     // add to transactions table
-                                    $sql = "INSERT INTO transactions (purchaseType,date,bill,is_item,buyerID,card) 
-                                    VALUES ('StoreRent',CURDATE(),$rentTotal,1, $userID, $card);";
+                                    $sql = "INSERT INTO transactions (purchaseType,date,bill,is_item,buyerID,sellerID,card) 
+                                    VALUES ('StoreRent',CURDATE(),$rentTotal,1, $userID,75, $card);";
                               
                                     if(mysqli_query($conn, $sql)){
                                         echo "Transaction completed<br>";
+                    
                                     }
-
+                                    // print transaction
+                                    echo"";
+                                    echo"go back to account";
                                 }else{//print the availabilty of this day
                                     echo $bookedHours;
                                 }
