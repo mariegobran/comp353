@@ -247,7 +247,6 @@ $(function() {
                                   
                                         if(mysqli_query($conn, $sql)){
                                             $counter--;
-                                            
                                             $hourBooking=strtotime( "+60 minutes", strtotime($hourBooking) );
                                             $hourBooking=date( 'H:i', $hourBooking );
                                             $hourBooking.=":00";
