@@ -1,5 +1,6 @@
 <?php include("session.php"); 
       include("config.php");
+      include("planValidation.php");
 ?> 
 <?php 
  if(!isset($_SESSION["userID"])){
