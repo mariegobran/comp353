@@ -26,6 +26,17 @@
       $count = mysqli_num_rows($result);
       
     // check if the result matches(exactly) an entry in the cards table, if not add a new card
+    //Check if data is entered correctly , Form Validation 
+
+    $numlength = strlen((string)$cardNum);
+    if(strlen((string)$cardType)==0 ){echo "Card type cannot be empty";}
+   else if(strlen((string)$cardHolder)==0 ){echo "Card holder cannot be empty";}
+   else if($cardNum==0 || $numlength!=8 ){echo "Card number must contain 8 digits";}
+   else if($cvs==0 ){echo "cvs must contain 3 digits";}
+   else if(strlen((string)$cardAddress)==0 ){echo "Card address s be empty";}
+   else if($expiration==0 ){echo "Card type cannot be empty";}
+
+else 
     if($count == 1) {
        if(($cardType==$row['type'])&&($cardHolder==$row['cardHolder'])&&($cardNum==$row['cardNumber'])
        &&($cvs==$row['cvs'])&&($cardAddress==$row['address'])&&($expiration==$row['expiration'])){
