@@ -24,12 +24,12 @@ SELECT * FROM ads WHERE userID =89 AND isBuying='y';
 
 -- seller report (ex: user with userID=67)
 /* The report show the seller how much they spent to sell their items*/
-(SELECT buyerID AS sellerID, count(bill) AS spent FROM Transactions AS buys
+SELECT buys.sellerID, spent, earned FROM(
+(SELECT buyerID AS sellerID, count(bill) AS spent FROM Transactions
 WHERE buyerID =67 AND purchaseType= 'storeRent' AND purchaseType= 'promotion'
-GROUP BY buyerID)
+GROUP BY buyerID) buys
 JOIN
-(SELECT sellerID , count(bill) AS earned FROM Transactions As sells
-WHERE sellerID = 67 AND purchaseType='onlinePurchase')
-ON buys.sellerID = sells.sellerID;
-
+(SELECT sellerID , count(bill) AS earned FROM Transactions  
+WHERE sellerID = 67 AND purchaseType='onlinePurchase') sells
+ON buys.sellerID = sells.sellerID) ;
 
