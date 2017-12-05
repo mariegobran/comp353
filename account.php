@@ -109,20 +109,42 @@ function redirect($url)
                         <?php
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             if (isset($_POST['submit'])) {
-                                echo "Selected plan is: ";
+
+
+                                
+
+                                
                                 $selected_plan = mysqli_real_escape_string($conn,$_POST['plan']);
+                                
+
+                                
+                                $sql="SELECT plan FROM users
+                                WHERE userID = $userID";
+                                $result = $conn->query($sql);
+                                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                                $curent_plan=$row['plan'];
+
+                                if($selected_plan > $curent_plan)
+                                {
+
+                                echo "Selected plan is: . ";
                                 echo $selected_plan." Days";
                                 echo "<br>";
-                                $Date=date("Y-m-d"); 
+                                $Date=date('Y-m-d'); 
                                 echo "Date of purchase is " . $Date  . "<br>";
                                 echo "Date of expiration will be: ".date('Y/m/d', strtotime($Date. ' + '.$selected_plan.' days'));
                                 $userID=$_SESSION['userID'];
 
+
                                 $sql="UPDATE users
-                                SET plan = '$selected_plan'
-                                WHERE userID = ' $userID'";
+                                SET plan = $selected_plan, planStart = '$Date'
+                                WHERE userID = $userID";
                                 $result = $conn->query($sql);
+                                
+                               
                                 echo "<br>Refresh the page to view the changes";
+              
+                                
 
                                 //To Do: Add payment in to transcation
                                 
@@ -146,7 +168,7 @@ function redirect($url)
                                 if($result = $conn->query($sql)){
                                 echo "<br>Transaction completed";
                                 }
-                                
+                            }else echo "You have a better plan than what you selected";
                                 
                             }
                         }
