@@ -99,7 +99,7 @@ $row = $result->fetch_assoc();
           $result = $conn->query($splAdID);
           $row = $result->fetch_assoc();
 
-          $_SESSION['adID']= $row['AdID'];
+          $_SESSION['AdID']= $row['AdID'];
 
           redirect("RentAStore.php");
 
