@@ -66,7 +66,7 @@ promotion = '$promotion',
 ownerID =  '$ownerID', 
 category = '$category'
 WHERE AdID = '$adToChange'";
-echo $sql;
+
 
 
 if(mysqli_query($conn,$sql)){
