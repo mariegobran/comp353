@@ -200,9 +200,7 @@ $(function() {
             </form>
                
             </div>
-            </div>   
-            <div class="col-sm-2" style="background-color:lavender;"></div>   
-		</div>		
+            		
             <?php
              if (($_SERVER['REQUEST_METHOD'] === 'POST')&& (isset($_POST['day']))){
                 if(isset($_POST['SLnum'],$_POST['day'],$_POST['hour'])){
@@ -341,6 +339,9 @@ $(function() {
              
             
             ?>
+            </div>   
+            <div class="col-sm-2" style="background-color:lavender;"></div>   
+		</div>
       </div>
 
    </body>

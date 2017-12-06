@@ -38,11 +38,11 @@ include("redirect.php");
                 $card=$_SESSION['card'];
                 $sellerID=$row['ownerID'];
                 $is_item=1;
-                $purchaseType='na';
+                $purchaseType='Store Ad';
                 $price=$row['price'];
 
                 $date = date('Y-m-d');
-                $bill= 'NA';
+
 
                 $description=$row["description"];
                 $AdID= $row["AdID"];

@@ -3,13 +3,14 @@
    include("config.php");
    error_reporting(E_ALL);
    ini_set('display_errors','On');
-   $adID ="";
    if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['Edit'])){
-        $adID = $_POST["Edit"];
-    }
-
+        
+   $_SESSION['adModify']=$_POST["Edit"];
+   $selectedAd=$_POST["Edit"];
+   echo "selected ad" .$selectedAd;
+   
    // get all the ad data
-   $sql = "SELECT * FROM ads WHERE AdID = '$adID'";
+   $sql = "SELECT * FROM ads WHERE AdID = '$selectedAd'";
    $result = mysqli_query($conn,$sql);
    $row = $result->fetch_assoc();
  
@@ -25,62 +26,68 @@
     $city=$row['city'];
     $category=$row['category'];
     $promotion=$row['promotion'];
-
+  }
    //get usetype and userID saved in session and check if the user is not
    // either the admin or the ad owner (then they're not allowed to modify the ad)
    if(!($_SESSION['usetype']=="Admin" || $_SESSION['userID']== $ownerID)){
        header ("location: index.php");
    }
 
+//submit changes
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (isset($_POST['change'])) {
+//get values from the form
 
-   //submit changes
-   if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['change'])){
-      //get values from the form
-      $ownerID = mysqli_real_escape_string($conn,$_POST['ownerID']);
-      $Title = mysqli_real_escape_string($conn,$_POST['title']);
-      $description = mysqli_real_escape_string($conn,$_POST['description']);
-      $price = mysqli_real_escape_string($conn,$_POST['price']);
-      $address = mysqli_real_escape_string($conn,$_POST['address']);
-      $phone = mysqli_real_escape_string($conn,$_POST['phone']);
-      $email = mysqli_real_escape_string($conn,$_POST['email']);
-      $image = mysqli_real_escape_string($conn,$_POST['image']);
-      $city = mysqli_real_escape_string($conn,$_POST['city']);
-      $promotion = mysqli_real_escape_string($conn,$_POST['promotion']);
-      $category = mysqli_real_escape_string($conn,$_POST['category']);
-      
-      //modify in database
-      $sql = "UPDATE ads
-      SET ownerID =  $ownerID, 
-          title = '$Title', 
-          description = '$description', 
-          price = $price, 
-          address = ' $address', 
-          phone = $phone, 
-          email = '$email', 
-          image = '$image', 
-          city = '$city', 
-          promotion = $promotion, 
-          category = ' $category'
-      WHERE AdID =  $adID ;";
+$Title = mysqli_real_escape_string($conn,$_POST['title']);
+$description = mysqli_real_escape_string($conn,$_POST['description']);
+$price = mysqli_real_escape_string($conn,$_POST['price']);
+$address = mysqli_real_escape_string($conn,$_POST['address']);
+$phone = mysqli_real_escape_string($conn,$_POST['phone']);
+$email = mysqli_real_escape_string($conn,$_POST['email']);
+$image = mysqli_real_escape_string($conn,$_POST['image']);
+$city = mysqli_real_escape_string($conn,$_POST['city']);
+$promotion = mysqli_real_escape_string($conn,$_POST['promotion']);
+$ownerID = $_POST['ownerID'];
+$category = mysqli_real_escape_string($conn,$_POST['category']);
 
-      try{
-          if(mysqli_query($conn,$sql)){
-              echo "changes are successfully submitted";
-              header("location: manage_users_ads.php");
-          }
-          
-      }catch(Exception $e){
-          echo $e;
-      }
-}//end of if statement for post method "change"
-   // cancel and go to manage ads (for user) or manage user ads (for Admin)
-if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
+$adToChange = $_SESSION['adModify'];
+echo "ad to change". $adToChange;
+//modify in database
+$sql = "UPDATE ads
+SET title = '$Title', 
+description = '$description', 
+price = $price, 
+address = '$address', 
+phone = '$phone', 
+email = '$email', 
+image = '$image', 
+city = '$city', 
+promotion = '$promotion', 
+ownerID =  '$ownerID', 
+category = '$category'
+WHERE AdID = '$adToChange'";
+echo $sql;
+
+
+if(mysqli_query($conn,$sql)){
   if($_SESSION["usetype"]=="Admin"){
     header ("location: manage_users_ads.php");
-  }else {
+    }else {
     header ("location: account.php");
-  }
+    }
+
 }
+}
+}//end of if statement for post method "change"
+// cancel and go to manage ads (for user) or manage user ads (for Admin)
+if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
+if($_SESSION["usetype"]=="Admin"){
+header ("location: manage_users_ads.php");
+}else {
+header ("location: account.php");
+}
+}
+   
 ?>
 
 <!DOCTYPE html>
