@@ -17,7 +17,7 @@
       //add -00 for expiration day
       $expiration .= "-00";
      //check if the card already exists in the database
-      $sql = "SELECT * FROM cards WHERE cardNumber = $cardNum;";
+      $sql = "SELECT * FROM Cards WHERE cardNumber = $cardNum;";
 
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -78,7 +78,7 @@ else
         
         header ("location: viewAds.php");
     } else{
-        echo "ERROR: Could not execute $sql. " . mysqli_error($link);
+        echo "ERROR: Could not execute $sql. " ;
     }
     
 }
