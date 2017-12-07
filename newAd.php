@@ -63,7 +63,7 @@ $row = $result->fetch_assoc();
       
       //modify in database8
       $sql = "INSERT INTO  ads (title,description,price,isBuying,address,phone,email,isBusiness,image,datePosted,city,promotion,ownerID,category)
-      VALUES ('$Title','$description','$price','$isBuying','$address','$phone','$email', '$isBusiness','$image','$datePosted','$city','$promotion','$ownerID','$category')";
+      VALUES ('$Title','$description', $price ,'$isBuying','$address',$phone,'$email', '$isBusiness','$image','$datePosted','$city','$promotion','$ownerID','$category')";
 
           if(mysqli_query($conn,$sql)){
               echo "<h4>Ad succesfully posted</h4>";
@@ -111,9 +111,9 @@ $row = $result->fetch_assoc();
    // cancel and go to manage ads (for user) or manage user ads (for Admin)
 if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
   if($_SESSION["usetype"]=="Admin"){
-    header ("location: manage_users_ads.php");
+    redirect ("location: manage_users_ads.php");
   }else {
-    header ("location: account.php");
+    redirect ("location: account.php");
   }
 }
 ?>

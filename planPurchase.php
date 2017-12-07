@@ -1,6 +1,7 @@
 <?php
    include("config.php");
    include("session.php");
+   include("redirect.php");
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // getting the plan choice
@@ -76,7 +77,7 @@ else
     if(mysqli_query($conn,$sql)){
         echo "user's plan and card are updated successfully";
         
-        header ("location: viewAds.php");
+        redirect ("location: viewAds.php");
     } else{
         echo "ERROR: Could not execute $sql. " ;
     }
