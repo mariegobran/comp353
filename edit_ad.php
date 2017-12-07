@@ -51,7 +51,6 @@ $ownerID = $_POST['ownerID'];
 $category = mysqli_real_escape_string($conn,$_POST['category']);
 
 $adToChange = $_SESSION['adModify'];
-echo "ad to change". $adToChange;
 //modify in database
 $sql = "UPDATE ads
 SET title = '$Title', 
