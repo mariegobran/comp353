@@ -252,7 +252,7 @@ function redirect($url)
                        <h2>My Upcoming Store bookings</h2>
                        <?php
                             $user=$_SESSION['userID'];
-                            $sql = "SELECT * FROM storebookings WHERE userID=$user AND date>= CURDATE()";
+                            $sql = "SELECT * FROM STOREBOOKINGS WHERE userID=$user AND date>= CURDATE()";
                             $result = $conn->query($sql);
 
                          if ($result->num_rows > 0) {
