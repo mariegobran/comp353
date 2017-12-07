@@ -10,17 +10,24 @@ GROUP BY sellerID;
 
 -- Admin report
 /*The report shows how many users with premium plan and 30 day promotion who have sold items in the last month*/
+SELECT * From
+	(SELECT * FROM users 
+	WHERE plan = 30
+	AND userID IN (SELECT sellerID FROM Transactions 
+                WHERE date>=(NOW() - INTERVAL 1 MONTH))) premiumUsers
+	JOIN
+	(SELECT ownerID, count(AdID) as AdsPosted FROM ads WHERE promotion=30 GROUP BY ownerID) thirtyDaysAds
+ON premiumUsers.userID= thirtyDaysAds.ownerID;
 
-SELECT * FROM users 
-WHERE plan = 30 AND promotion =30
-AND userID IN (SELECT sellerID FROM Transactions 
-                WHERE date>=(NOW() - INTERVAL 1 MONTH));
+GROUP BY users.userID;
+                
+    
 
 
 -- regular user report
 -- buyer report (ex: user with userID=89)
 /*The report finds all the ads posted by the user where the user is a buyer */
-SELECT * FROM ads WHERE userID =89 AND isBuying='y';
+SELECT AdID FROM ads WHERE userID =89 AND isBuying='y';
 
 -- seller report (ex: user with userID=67)
 /* The report show the seller how much they spent to sell their items*/

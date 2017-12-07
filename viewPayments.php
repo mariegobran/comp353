@@ -50,7 +50,7 @@ $(document).ready(function(){
             // output data of each row
             while($row = $result->fetch_assoc()) {
                 // get card details
-                $cardDetails = "SELECT * FROM cards WHERE cardNumber = ". $row['card'];
+                $cardDetails = "SELECT * FROM Cards WHERE cardNumber = ". $row['card'];
                 $cardResult = $conn->query($cardDetails);
                 $card = $cardResult->fetch_assoc();
                 //add row data to the table

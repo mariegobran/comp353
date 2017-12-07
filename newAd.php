@@ -5,7 +5,7 @@
    ini_set('display_errors','On');
    include("redirect.php");
    
-   $adID ="";
+   $AdID ="";
 //if the user have a free plan, redirect to plan purchase page
 if(isset($_SESSION["userID"])){
   $userID = $_SESSION['userID'];

@@ -10,6 +10,7 @@
     }else redirect("index.php");
 
     //get AdID
+    $AdID=null;
     if(isset($_POST['rentStore'])){
         $AdID = $_POST['rentStore'];
         $_SESSION['AdID'] = $AdID;
@@ -240,7 +241,7 @@ $(function() {
                                     $counter =$numOfHours;
                                     $hourBooking = $hour;
                                     while($counter!=0){ // make a booking for each hour
-                                        $sql = "INSERT INTO storebookings (userID,AdID,date,time,SLnum) 
+                                        $sql = "INSERT INTO STOREBOOKINGS (userID,AdID,date,time,SLnum) 
                                         VALUES ($userID,$AdID,'$day','$hourBooking',$SLnum);";
                                   
                                         if(mysqli_query($conn, $sql)){
@@ -253,7 +254,7 @@ $(function() {
                 
                                     }
                                     //add ad to store ads
-                                    $sql = "INSERT INTO storeads (deliveryAvailable, AdID, SLnum) 
+                                    $sql = "INSERT INTO storeAds (deliveryAvailable, AdID, SLnum) 
                                     VALUES ('$delivery',$AdID,$SLnum);";
                               
                                     if(mysqli_query($conn, $sql)){
@@ -266,7 +267,7 @@ $(function() {
                                     //if the day of booking is a weekend, get extra charge
                                     $weekday = date('w',strtotime($day));
                                     if($weekday == 0 || $weekday ==6){
-                                        $sql = "SELECT * FROM physicalstore WHERE SLnum = $SLnum";
+                                        $sql = "SELECT * FROM PhysicalStore WHERE SLnum = $SLnum";
                                         $result = $conn->query($sql);
                                         $row = $result->fetch_assoc();
                                         $extraCharge = $row['extraCharge'];
@@ -282,7 +283,7 @@ $(function() {
                                     
                                     //get user's card if (card will be used)
                                     if($payment==="y"){
-                                        $sql="SELECT * FROM USERS WHERE USERID = $userID";
+                                        $sql="SELECT * FROM users WHERE userID = $userID";
                                         $result = $conn->query($sql);
                                         $row = $result->fetch_assoc();
                                         $card = $row['card'];
@@ -308,7 +309,7 @@ $(function() {
                                     
                     
                                     // add to transactions table
-                                    $sql = "INSERT INTO transactions (purchaseType,date,bill,is_item,buyerID,sellerID,card) 
+                                    $sql = "INSERT INTO Transactions (purchaseType,date,bill,is_item,buyerID,sellerID,card) 
                                     VALUES ('StoreRent',CURDATE(),$rentTotal,1, $userID,75, $card);";
                               
                                     if(mysqli_query($conn, $sql)){

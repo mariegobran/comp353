@@ -47,7 +47,7 @@ else
       }else if($count == 0){
           
         // the card is not in the database and should be added
-        $sql ="INSERT INTO cards (type,cardHolder,cardNumber,cvs,address,expiration)
+        $sql ="INSERT INTO Cards (type,cardHolder,cardNumber,cvs,address,expiration)
                 VALUES ('$cardType','$cardHolder', $cardNum, $cvs, '$cardAddress', DATE '$expiration');";
 
         if(mysqli_query($conn, $sql)){
@@ -59,13 +59,13 @@ else
         $error = "the card is not valid";
     }
     // get the plan price from the database 
-    $sql = "SELECT * FROM PLANS WHERE numberOfDays = '$plan'";
+    $sql = "SELECT * FROM Plans WHERE numberOfDays = '$plan'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $planPrice = $row['price'];
 
     // add a row in the transaction table for the plan purchase
-    $sql ="INSERT INTO TRANSACTIONS (purchaseType, date, bill, is_item, buyerID, card)
+    $sql ="INSERT INTO Transactions (purchaseType, date, bill, is_item, buyerID, card)
     VALUES ('plan purchase', CURDATE(), $planPrice, 0, ".$_SESSION['userID'].", $cardNum);  ";
 
     //editing user's card and plan
