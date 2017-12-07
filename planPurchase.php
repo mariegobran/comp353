@@ -72,7 +72,7 @@ else
     //editing user's card and plan
     $userID = $_SESSION['userID'];
     $sql = "UPDATE users
-            SET plan = $plan, card = $cardNum
+            SET plan = $plan, card = $cardNum, planStart= CURDATE()
             WHERE userID = $userID;";
     if(mysqli_query($conn,$sql)){
         echo "user's plan and card are updated successfully";
@@ -81,6 +81,9 @@ else
     } else{
         echo "ERROR: Could not execute $sql. " ;
     }
+
+     
+
     
 }
 ?>
