@@ -21,8 +21,8 @@
         if($count==0){
       
           //adding Values to database
-          $sql = "INSERT INTO users (firstName, lastName, username, password, email,usertype, plan, card) 
-          VALUES ('$firstName','$lastName','$username','$password', '$email', 'Regular', 0, 0);";
+          $sql = "INSERT INTO users (firstName, lastName, username, password, email,usertype, plan, card, planStart) 
+          VALUES ('$firstName','$lastName','$username','$password', '$email', 'Regular', 0, 0, CURDATE());";
     
           if(mysqli_query($conn, $sql)){
             echo "Records inserted successfully.";
