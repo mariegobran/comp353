@@ -46,7 +46,8 @@
               
               <ul class='nav navbar-nav'>
                 <li class='active'><a href='viewPayments.php'>View payments</a></li>
-                <li class='active'><a href='manage_users_ads.php'>Manage users ads</a></li
+                <li class='active'><a href='manage_users_ads.php'>Manage users ads</a></li>
+                <li class='active'><a href='reports.php'>View Reports</a></li>
               </ul>
             </div>
           </nav>";
