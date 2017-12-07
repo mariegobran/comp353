@@ -250,7 +250,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                       <input type="radio" name="isBuying" value ="y" >Buy
                     </label>
                     <label class="radio-inline">
-                      <input type="radio" name="isBuying" value="n">Sell
+                      <input type="radio" name="isBuying" value="n" checked="checked">Sell
                     </label> 
                     </td>
                     </tr>
@@ -260,7 +260,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <td><h5>Type of seller:</h5></td>
                     <td>
                     <label class="radio-inline">
-                      <input type="radio"  name="isBusiness" value ="n" >Personal
+                      <input type="radio"  name="isBusiness" value ="n" checked="checked" >Personal
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="isBusiness" value="y">Businesss
@@ -274,7 +274,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"  && isset ($_POST['cancel'])){
                     <td><h5>Do you want to rent a store?</h5></td>
                     <td>
                     <label class="radio-inline">
-                      <input type="radio"  name="rent" value ="n" >no
+                      <input type="radio"  name="rent" value ="n" checked="checked" >no
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="rent" value="y">yes
